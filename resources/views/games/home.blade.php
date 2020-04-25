@@ -7,14 +7,15 @@
     <tr>
       <th>ID</th>
       <th>Nombre</th>
+      <th>Título</th>
     </tr>
 
     @if($games)
       @foreach($games as $game)
       <tr>
         <td>{{$game->id}}</td>
-        <td><a href="{{action('GamesController@show', $game->id)}}">{{$game->name}}<a></td>
-        <!-- <td><a href="{{route('games.show', $game->id)}}">{{$game->name}}<a></td> -->
+        <td>{{$game->name}}<a></td>
+        <td><a href="{{action('GamesController@show', $game->name)}}">{{$game->title}}<a></td>
       </tr>
       @endforeach
     @endif
