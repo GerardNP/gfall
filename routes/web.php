@@ -15,14 +15,19 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource("/games", "GamesController");
 
-Route::get("/", "GamesController@home");
-Route::get("/{nombre-juego}", "GamesController@show");
+// Route::get("/", "GamesController@home");
+// Route::get("/{name}", "GamesController@show");
 
-Route::get("/registrarse", "UsersController@create"); // Registrarse
-Route::post("/registrarse", "UsersController@store"); 
-Route::get("/iniciar-sesion", "UsersController@signin"); // Iniciar sesión
-Route::get("/perfil/{id}", "UsersController@profile");
+// Registro de usuarios
+Route::get("/signup", "UsersController@create")->name("users.create");
+Route::post("/signup", "UsersController@store")->name("users.store");
 
-// Route::get('/post/{id}/{nombre}', function ($id, $nombre) {
-//     return "Este es el post nº " . $id . " creado por " . $nombre;
-// })->where ("nombre", "[a-z A-Z]+");
+// Inicio de sesión
+Route::get("/login", "UsersController@login")->name("users.login");
+
+// Perfil
+Route::get("/profile/{id}", "UsersController@show")->name("users.show");
+
+// Editar datos del perfil
+Route::get("/profile/{id}/edit", "UsersController@edit")->name("users.edit");
+Route::put("/profile/{id}", "UsersController@update")->name("users.update");

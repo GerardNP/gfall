@@ -31,9 +31,11 @@
   <body>
     <nav>
       <ul>
-        <li><a href="{{action('GamesController@home')}}">Minijuegos</a></li>
+        <li><a href="#">Menú</a></li>
+        <li><a href="#">Minijuegos</a></li>
         <li><input type="text" name="name" placeholder="Buscar juegos"></li>
-        <li><a href="#">Entrar</a></li>
+        <li><a href="#">Registrarse</a></li>
+        <li><a href="#">Iniciar sesión</a></li>
       </ul>
     </nav>
 

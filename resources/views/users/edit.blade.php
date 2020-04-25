@@ -1,10 +1,12 @@
 @extends("layouts.app")
 
-@section("titulo", "Perfil")
+@section("titulo", "Editar Perfil")
 
 @section("main")
-<h1>Perfil - {{$user->name}}</h1>
-<form class="" action="index.html" method="post">
+<h1>Editar Perfil - {{$user->name}}</h1>
+<form class="" action="{{action('UsersController@update', $user->id)}}" method="post">
+  @csrf
+  @method("PUT")
   <label for="id_name">Nombre</label>
   <input type="text" name="name" id="id_name" value="{{$user->name}}"><br><br>
 
