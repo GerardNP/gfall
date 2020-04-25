@@ -15,7 +15,19 @@ class GamesController extends Controller
     public function index()
     {
       $games = Game::all();
-      return view( "games.index", compact("games") );
+      return view( "games.home", compact("games") );
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($name)
+    {
+      $game = Game::where("name", $name)->first();
+      return view( "games.show", compact("game") );
     }
 
     /**
@@ -37,18 +49,6 @@ class GamesController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-      $game = Game::find($id);
-      return view( "games.show", compact("game") );
     }
 
     /**

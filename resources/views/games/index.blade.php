@@ -15,7 +15,7 @@
       <tr>
         <td>{{$game->id}}</td>
         <td>{{$game->name}}<a></td>
-        <td><a href="{{action('GamesController@show', $game->name)}}">{{$game->title}}<a></td>
+        <td><a href="{{action('GamesController@show', $game->id)}}">{{$game->title}}<a></td>
       </tr>
       @endforeach
     @endif

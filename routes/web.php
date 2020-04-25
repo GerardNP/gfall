@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::resource("/games", "GamesController");
-
-// Route::get("/", "GamesController@home");
-// Route::get("/{name}", "GamesController@show");
+// Juegos
+Route::resource("/games", "GamesController")->only(["index", "show"]);
 
 // Registro de usuarios
 Route::get("/signup", "UsersController@create")->name("users.create");
