@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 // Juegos
 Route::resource("/games", "GamesController")->only(["index", "show"]);
 
+//Categorías
+Route::middleware(["auth"])->group(function () {
+  Route::resource("categories", "CategoryController");
+});
+
+
 // // Registro de usuarios
 // Route::get("/signup", "UsersController@create")->name("users.create");
 // Route::post("/signup", "UsersController@store")->name("users.store");

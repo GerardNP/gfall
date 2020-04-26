@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title> @yield("title") </title>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" defer integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -21,18 +21,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
-
-      /* table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-      } */
-
-
       header {
         margin-bottom: 1em;
         padding: 1em 2em;
@@ -101,6 +89,9 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                              <a href="{{action('CategoryController@index')}}" class="nav-link">Categorías</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

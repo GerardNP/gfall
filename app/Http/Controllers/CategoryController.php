@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Game;
+use App\Category;
+use Session;
 
-class GamesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class GamesController extends Controller
      */
     public function index()
     {
-      $games = Game::all();
-      return view( "games.index", compact("games") );
+      $categories = Category::all();
+      return view("categories.index", compact("categories"));
     }
 
     /**
@@ -25,7 +26,7 @@ class GamesController extends Controller
      */
     public function create()
     {
-        //
+        return view("categories.create");
     }
 
     /**
@@ -36,7 +37,20 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // Validación
+      $rules = [
+        "name" => "required",
+      ];
+
+      $messages = [
+        "name.required" => "Es obligatorio rellenar este campo"
+      ];
+
+      $this->validate($request, $rules, $messages);
+
+      Category::create($request->all());
+      Session::flash("message", "Categoría creada correctamente");
+      return redirect( action("CategoryController@index") );
     }
 
     /**
@@ -47,10 +61,7 @@ class GamesController extends Controller
      */
     public function show($id)
     {
-      $game = Game::find($id);
-      return view( "games.show", compact("game") );
-      // game = Game::where("name", $name)->first();
-      // return view( "games.show", compact("game") );
+        //
     }
 
     /**
@@ -61,7 +72,8 @@ class GamesController extends Controller
      */
     public function edit($id)
     {
-        //
+      $category = Category::find($id);
+      return view( "categories.edit", compact("category") );
     }
 
     /**
@@ -73,7 +85,21 @@ class GamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      // Validación
+      $rules = [
+        "name" => "required",
+      ];
+
+      $messages = [
+        "name.required" => "Es obligatorio rellenar este campo"
+      ];
+
+      $this->validate($request, $rules, $messages);
+
+      $category = Category::find($id);
+      $category->update($request->all());
+      Session::flash("message", "Categoría actualizada correctamente");
+      return redirect( action("CategoryController@index") );
     }
 
     /**
@@ -84,6 +110,8 @@ class GamesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Category::find($id)->delete();
+      Session::flash("message", "Categoría eliminada correctamente");
+      return redirect( action("CategoryController@index") );
     }
 }
