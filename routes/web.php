@@ -16,16 +16,22 @@ use Illuminate\Support\Facades\Route;
 // Juegos
 Route::resource("/games", "GamesController")->only(["index", "show"]);
 
-// Registro de usuarios
-Route::get("/signup", "UsersController@create")->name("users.create");
-Route::post("/signup", "UsersController@store")->name("users.store");
+// // Registro de usuarios
+// Route::get("/signup", "UsersController@create")->name("users.create");
+// Route::post("/signup", "UsersController@store")->name("users.store");
+//
+// // Inicio de sesión
+// Route::get("/login", "UsersController@login")->name("users.login");
+//
+// // Perfil
+// Route::get("/profile/{id}", "UsersController@show")->name("users.show");
+//
+// // Editar datos del perfil
+// Route::get("/profile/{id}/edit", "UsersController@edit")->name("users.edit");
+// Route::put("/profile/{id}", "UsersController@update")->name("users.update");
 
-// Inicio de sesión
-Route::get("/login", "UsersController@login")->name("users.login");
-
-// Perfil
-Route::get("/profile/{id}", "UsersController@show")->name("users.show");
-
-// Editar datos del perfil
-Route::get("/profile/{id}/edit", "UsersController@edit")->name("users.edit");
-Route::put("/profile/{id}", "UsersController@update")->name("users.update");
+Auth::routes();
+Route::get("/", function() {
+    return view("welcome");
+});
+Route::get('/home', 'HomeController@index')->name('home');

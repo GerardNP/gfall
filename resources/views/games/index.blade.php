@@ -2,7 +2,7 @@
 
 @section("titulo", "Inicio")
 
-@section("main")
+@section("content")
   <table class="table">
     <tr>
       <th>ID</th>

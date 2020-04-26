@@ -2,7 +2,7 @@
 
 @section("titulo", $game->title)
 
-@section("main")
+@section("content")
 <table class="table">
   <tr>
     <th>ID</th>
