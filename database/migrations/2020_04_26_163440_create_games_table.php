@@ -15,8 +15,13 @@ class CreateGamesTable extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->foreignId("user_id")->references("id")->on("users");
+            $table->foreignId("category_id")->references("id")->on("categories");
             $table->string("title");
+            $table->string("slug");
+            $table->string("image");
+            $table->text("description");
+            $table->string("category");
             $table->timestamps();
         });
     }
