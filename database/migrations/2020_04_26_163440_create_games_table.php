@@ -19,9 +19,8 @@ class CreateGamesTable extends Migration
             $table->foreignId("category_id")->references("id")->on("categories");
             $table->string("title");
             $table->string("slug");
-            $table->string("image");
             $table->text("description");
-            $table->string("category");
+            $table->string("image");
             $table->timestamps();
         });
     }

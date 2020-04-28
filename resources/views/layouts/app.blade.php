@@ -20,7 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
+    <!-- <style>
       header {
         margin-bottom: 1em;
         padding: 1em 2em;
@@ -57,7 +57,7 @@
         background-color: #2f3237;
         color: white;
       }
-    </style>
+    </style> -->
   </head>
   <body>
     <div id="app">
@@ -92,6 +92,9 @@
                             <li class="nav-item">
                               <a href="{{action('CategoryController@index')}}" class="nav-link">Categorías</a>
                             </li>
+                            <li class="nav-item">
+                              <a href="{{action('GamesController@index')}}" class="nav-link">Juegos</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -117,7 +120,7 @@
     </div>
 
 
-    <header>
+    <!-- <header>
       <div class="header">
 
         <div class="menu">
@@ -149,7 +152,7 @@
         </div>
 
       </div>
-    </header>
+    </header> -->
 
 
     <main class="container">
@@ -157,8 +160,8 @@
     </main>
 
 
-    <footer>
+    <!-- <footer>
       Todos los derechos reservados. Proyecto Fin de Ciclo.
-    </footer>
+    </footer> -->
   </body>
 </html>

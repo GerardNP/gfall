@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Juegos
-Route::resource("/games", "GamesController")->only(["index", "show"]);
+ // Route::resource("/games", "GamesController")->except(["index", "show"]);
 
 //Categorías
 Route::middleware(["auth"])->group(function () {
-  Route::resource("categories", "CategoryController");
+  Route::resource("/categories", "CategoryController");
+  Route::resource("/games", "GamesController");
 });
 
 
