@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Juegos")
+@section("title", "Juegos - Minijuegos")
 
 @section("content")
 
@@ -10,7 +10,7 @@
 </div>
 @endif
 
-<h2 class="text-center mb-3">Juegos</h2>
+<h2 class="text-center mb-3 mt-3">Administración de Juegos</h2>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -28,14 +28,18 @@
     @foreach($games as $game)
     <tr>
       <th scope="row">{{ $game->id }}</th>
-      <td>{{ $game->title }}</td>
+      <td>
+        <a href="{{ action('FrontController@showGame', $game->slug) }}">{{ $game->title }}</a>
+      </td>
       <td>{{ $game->description }}</td>
-      <td>{{ $game->category->name }}</td>
+      <td>
+        <a href="{{ action('FrontController@showCategory', $game->category->slug) }}">{{ $game->category->name }}
+      </td>
       <td>{{ $game->user->name }}</td>
       <td><img src="{{ $game->image }}" width="60" height="60" class="img-fluid"></td>
       <td class="d-flex">
-        <a href="{{ action('GamesController@edit', $game->id) }}" class="btn btn-warning mr-1">Editar</a>
-        <form action="{{ action('GamesController@destroy', $game->id) }}" method="post">
+        <a href="{{ action('GameController@edit', $game->id) }}" class="btn btn-warning mr-1">Editar</a>
+        <form action="{{ action('GameController@destroy', $game->id) }}" method="post">
           @csrf
           @method("DELETE")
           <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('¿Está seguro que quiere eliminar esta juego?')">Eliminar</button>
@@ -47,5 +51,5 @@
   </tbody>
 </table>
 
-<a href="{{action('GamesController@create')}}" class="btn btn-primary btn-block">Crear Juego</a>
+<a href="{{action('GameController@create')}}" class="btn btn-primary btn-block">Crear Juego</a>
 @endsection

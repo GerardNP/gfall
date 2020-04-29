@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Front
+// Front - Acceso Público
 Route::get("", "FrontController@index");
-Route::get("game/{slug}", "FrontController@show");
+Route::get("game/{slug}", "FrontController@showGame");
+Route::get("categories", "FrontController@showCategories");
+Route::get("category/{slug}", "FrontController@showCategory");
 
-//Categorías
+// Categorías y Juegos - Acceso Restringido
 Route::middleware(["auth"])->group(function () {
-  Route::resource("/categories", "CategoryController");
-  Route::resource("/games", "GamesController");
+  Route::resource("/admin/categories", "CategoryController")->except("show");
+  Route::resource("/admin/games", "GameController")->except("show");
 });
 
 // Laravel

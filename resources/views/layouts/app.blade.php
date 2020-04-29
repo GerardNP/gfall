@@ -26,27 +26,21 @@
         padding: 1em 2em;
         background-color: #2f3237;
       }
-
       .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
-
       .header a {
         text-decoration: none;
         color: white;
       }
-
       .title a {
         font-size: 2em;
       }
-
       .options a {
         padding: 0 0.5em;
       }
-
-
       footer {
         width: 100%;
         margin-top: 1em;
@@ -93,7 +87,7 @@
                               <a href="{{action('CategoryController@index')}}" class="nav-link">Categorías</a>
                             </li>
                             <li class="nav-item">
-                              <a href="{{action('GamesController@index')}}" class="nav-link">Juegos</a>
+                              <a href="{{action('GameController@index')}}" class="nav-link">Juegos</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -132,7 +126,7 @@
         </div>
 
         <div class="title">
-          <a href="{{action('GamesController@index')}}">🎮minijuegos</a>
+          <a href="{{action('GameController@index')}}">🎮minijuegos</a>
         </div>
 
         <div class="options">

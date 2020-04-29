@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Crear - Categoría")
+@section("title", "Crear categoría - Minijuegos")
 
 @section("content")
 <h2 class="text-center">Crear categoría</h2>
@@ -8,14 +8,10 @@
   @csrf
   <div class="form-group">
     <label for="id_name">Nombre</label>
+    <input type="text" name="name" id="id_name" class="form-control">
     @if( $errors->has("name") )
-      <input type="text" name="name" id="id_name" class="form-control is-invalid">
-    @else
-      <input type="text" name="name" id="id_name" class="form-control">
+      <strong class="text-danger">{{ $errors->first("name") }}</strong>
     @endif
-    <div class="invalid-feedback">
-      {{ $errors->first("name") }}
-    </div>
   </div>
 
   <input type="submit" name="create" value="Crear" class="btn btn-primary btn-block">

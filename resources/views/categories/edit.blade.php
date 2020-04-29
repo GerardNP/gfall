@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Editar - Categoría")
+@section("title", "Editar categoría - Minijuegos")
 
 @section("content")
 <h2 class="text-center">Editar categoría</h2>
@@ -9,14 +9,10 @@
   @method("PUT")
   <div class="form-group">
     <label for="id_name">Nombre</label>
+    <input type="text" name="name" id="id_name" value="{{ $category->name }}" class="form-control">
     @if( $errors->has("name") )
-      <input type="text" name="name" id="id_name" value="{{ $category->name }}" class="form-control is-invalid">
-    @else
-      <input type="text" name="name" id="id_name" value="{{ $category->name }}" class="form-control">
+      <strong class="text-danger">{{ $errors->first("name") }}</strong>
     @endif
-    <div class="invalid-feedback">
-      {{ $errors->first("name") }}
-    </div>
   </div>
 
   <input type="submit" name="update" value="Actualizar" class="btn btn-primary btn-block">

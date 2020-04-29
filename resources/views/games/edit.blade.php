@@ -4,16 +4,21 @@
 
 @section("content")
 <h2 class="text-center">Crear Juego</h2>
-<form action="{{ action('GamesController@update', $game->id) }}" method="post" enctype="multipart/form-data">
+<form action="{{ action('GameController@update', $game->id) }}" method="post" enctype="multipart/form-data">
   @csrf
   @method("PUT")
 
   <div class="form-group">
     <label for="id_category_id">Categoría</label>
     <select class="form-control" name="category_id" id="id_category_id">
-      <option value="{{ $game->category_id }}" selected="selected">{{ $game->category->name }}</option>
       @foreach($categories as $category)
-        <option value="{{ $category->id }}">{{ $category->name }}</option>
+        @if( $category->name == $game->category->name )
+        <option value="$category->id" selected>
+        @else
+        <option value="$category->id">
+        @endif
+          {{ $category->name }}
+        </option>
       @endforeach
     </select>
   </div>

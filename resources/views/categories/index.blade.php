@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section("title", "Categorías - Juegos")
+@section("title", "Categorías - Minijuegos")
 
 @section("content")
 
@@ -10,7 +10,7 @@
 </div>
 @endif
 
-<h2 class="text-center mb-3">Categorías - Juegos</h2>
+<h2 class="text-center mb-3 mt-3">Administración de Categorías</h2>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -24,7 +24,9 @@
     @foreach($categories as $category)
     <tr>
       <th scope="row">{{$category->id}}</th>
-      <td>{{$category->name}}</td>
+      <td>
+        <a href="{{ action('FrontController@showCategory', $category->slug) }}">{{$category->name}}</a>
+      </td>
       <td class="d-flex">
         <a href="{{ action('CategoryController@edit', $category->id) }}" class="btn btn-warning mr-1">Editar</a>
         <form action="{{ action('CategoryController@destroy', $category->id) }}" method="post">

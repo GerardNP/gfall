@@ -1,10 +1,10 @@
 @extends("layouts.app")
 
-@section("title", "Crear - Juego")
+@section("title", "Crear juego - Minijuegos")
 
 @section("content")
 <h2 class="text-center">Crear Juego</h2>
-<form action="{{ action('GamesController@store') }}" method="post" enctype="multipart/form-data">
+<form action="{{ action('GameController@store') }}" method="post" enctype="multipart/form-data">
   @csrf
   <input type="hidden" name="user_id" value="{{$user->id}}">
 
