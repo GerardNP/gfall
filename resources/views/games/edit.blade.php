@@ -13,9 +13,9 @@
     <select class="form-control" name="category_id" id="id_category_id">
       @foreach($categories as $category)
         @if( $category->name == $game->category->name )
-        <option value="$category->id" selected>
+        <option value="{{ $category->id }}" selected>
         @else
-        <option value="$category->id">
+        <option value="{{ $category->id }}">
         @endif
           {{ $category->name }}
         </option>
