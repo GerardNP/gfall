@@ -25,9 +25,5 @@ Route::middleware(["auth"])->group(function () {
   Route::resource("/admin/games", "GameController")->except("show");
 });
 
-// Laravel
+// Auntenticación 
 Auth::routes();
-Route::get("/welcome", function() {
-    return view("welcome");
-});
-Route::get('/home', 'HomeController@index')->name('home');

@@ -3,15 +3,30 @@
 @section("title", $game->title . " - Minijuegos")
 
 @section("content")
-<h1>{{ $game->title }}</h1>
-<img src="{{ $game->image }}" alt="" width="80" height="80">
-<strong>
-  Categoría:
-  <a href="{{ action('FrontController@showCategory', $game->category->slug) }}">{{ $game->category->name}}</a>
-</strong>
-<!-- <div class="game" style="background-color: grey; height: 500px; margin: 2em auto">
-</div> -->
-<main>
+
+<section class="card-info container">
+  <img src="{{ $game->image }}" alt="">
+  <div class="card-info-content">
+    <span class="card-info-title">{{ $game->title }}</span>
+    <span class="card-info-subtitle">
+      Categoría:
+      <a href="{{ action('FrontController@showCategory', $game->category->slug) }}">{{ $game->category->name }}</a>
+    </span>
+  </div>
+</section>
+
+<section class="container-game">
+  <div class="game">
+  </div>
+</section>
+
+<div class="container">
+  <span class="title-section container">Descripción</span>
+</div>
+<section class="container">
+  {{ $game->description }}
+</section>
+<!-- <main>
   <h1>Piedra, Papel, Tijeras, Lagarto, Spock 👨‍💻</h1>
 
   <section class="game">
@@ -42,9 +57,6 @@
     </div>
 
   </section>
-</main>
-<h3>Descripción</h3>
-<p>
-  {{ $game->description }}
-</p>
+</main> -->
+
 @endsection

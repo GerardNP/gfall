@@ -9,11 +9,20 @@
   box-sizing: inherit;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.container {
+  width: 60%;
+  margin: 0 auto;
+}
+
 
 /* --- HEADER --- */
 nav {
   padding: 1em 2em;
-  /* margin-bottom: 1em; */
   background-color: #2f3237;
   color: white;
 }
@@ -30,6 +39,10 @@ nav a {
 }
 
 /* Categories Nav*/
+#button-menu {
+  cursor: pointer;
+}
+
 .menu-categories {
   width: 0px;
   height: 100vh;
@@ -54,7 +67,6 @@ nav a {
 .menu-categories a:hover {
   color: white;
 }
-
 
 .title a {
   font-size: 2em;
@@ -96,14 +108,110 @@ nav a {
 }
 
 
+/* --- MAIN --- */
+.title-section {
+  display: block;
+  width: 80%;
+  margin: 10px 0;
+  font-size: 1.5em;
+}
+
+.title-section::after {
+  display: block;
+  content: " ";
+  height: 1px;
+  margin-bottom: 3px;
+  background-color: grey;
+}
+
+.deck-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.deck-cards a {
+  text-decoration: none;
+  color: black;
+}
+
+.card {
+  width: 250px;
+  padding: 0.5em 0.5em;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin: 0.5em 0.5em;
+  background-color: var(--my-light-grey);
+}
+
+.card:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+.card-title {
+  display: block;
+  margin: 8px 0;
+  font-size: 1em;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 0.8em;
+  color: grey;
+}
+
+.card-author {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.card-info {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.card-info img {
+  width: 100px;
+  height: 70px;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.card-info-title {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.container-game {
+  width: 100%;
+  height: 600px;
+  background-color: grey;
+}
+
+.game {
+  width: 900px;
+  height: 100%;
+  margin: 0 auto;
+  background-color: black;
+}
+
 /* --- FOOTER --- */
 footer {
-  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 1em;
+  flex-wrap: wrap;
+  width: 100%;
   padding: 1em 0;
-  position: fixed;
-  bottom: 0;
-  text-align: center;
   background-color: #2f3237;
   color: white;
 }

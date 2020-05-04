@@ -16,7 +16,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   </head>
   <body>
-
     <!-- HEADER -->
     <nav>
       <div class="navbar">
@@ -75,15 +74,19 @@
       <a href="{{ action('FrontController@showCategory', 'accion') }}">Acción</a>
       <a href="{{ action('FrontController@showCategory', 'aventura') }}">Aventura</a>
       <a href="{{ action('FrontController@showCategory', 'estrategia') }}">Estrategia</a>
+      <a href="{{ action('FrontController@showCategory', 'otro') }}">Otro</a>
     </div>
 
-    <main class="container">
+
+    <!-- MAIN -->
+    <main>
       @yield("content")
     </main>
 
 
+    <!-- FOOTER -->
     <footer>
-      Todos los derechos reservados. Proyecto Fin de Ciclo.
+      <p>Todos los derechos reservados. Proyecto Fin de Ciclo.</p>
     </footer>
   </body>
 </html>

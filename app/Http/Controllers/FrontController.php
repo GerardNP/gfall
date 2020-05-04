@@ -9,7 +9,8 @@ use App\Category;
 class FrontController extends Controller
 {
   public function index() {
-    $games = Game::orderBy("id", "DESC")->paginate(5);
+    $games = Game::all();
+    // $games = Game::orderBy("id", "DESC")->paginate(5);
     return view("frontend.index", compact("games") );
   }
 
