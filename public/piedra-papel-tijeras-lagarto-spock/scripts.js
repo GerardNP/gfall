@@ -48,7 +48,7 @@ function play(event) {
   h2.appendChild(text);
 
   // Mostrar las opciones elegidas
-  showOption(option_J1, option_J2);
+  showResults(option_J1, option_J2);
 
   // Mostrar puntuaciones
   showScores();
@@ -103,7 +103,7 @@ function getWinner(option_J1, option_J2) {
   return winner;
 }
 
-function showOption(option_J1, option_J2) {
+function showResults(option_J1, option_J2) {
   var resultImg = document.getElementById("result-img");
   var options = [option_J1 + ".png", option_J2 + ".png"];
 
@@ -119,13 +119,17 @@ function showOption(option_J1, option_J2) {
     }
     resultImg.appendChild(img);
   }
+
+  document.getElementsByClassName("result")[0].style.display = "block";
 }
 
 function showScores() {
   var scores = document.getElementById("scores");
   scores.innerHTML = "";
-  var text = document.createTextNode("Partidas: " + rounds + "\n" +
-  "Partidas ganadas: " + scoreJ1 + "\n" +
-  "Partidas perdidas: " + scoreJ2);
+  var text = document.createTextNode("Partidas: " + rounds + "\n" + " - " +
+  "Ganadas: " + scoreJ1 + "\n" + " - " +
+  "Perdidas: " + scoreJ2);
   scores.appendChild(text);
+
+  document.getElementsByClassName("scores")[0].style.display = "block";
 }
