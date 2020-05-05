@@ -11,9 +11,15 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @if( url()->current() == "http://minijuegos.test/game/piedra-papel-tijeras-lagarto-spock" )
+    <script src="{{ asset('piedra-papel-tijeras-lagarto-spock/scripts.js') }}" defer></script>
+    @endif
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if( url()->current() == "http://minijuegos.test/game/piedra-papel-tijeras-lagarto-spock" )
+    <link href="{{ asset('piedra-papel-tijeras-lagarto-spock/styles.css') }}" rel="stylesheet">
+    @endif
   </head>
   <body>
     <!-- HEADER -->
@@ -88,5 +94,9 @@
     <footer>
       <p>Todos los derechos reservados. Proyecto Fin de Ciclo.</p>
     </footer>
+
+    <script>
+      var asset = "{{ asset('') }}";
+    </script>
   </body>
 </html>
