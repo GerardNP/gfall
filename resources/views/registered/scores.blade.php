@@ -3,7 +3,7 @@
 @section("title", "Puntuaciones - Minijuegos")
 
 @section("content")
-<h1>Puntuaciones</h1>
+<h2>Puntuaciones</h2>
 <table class="container">
   <tr>
     <th>Juego</th>
