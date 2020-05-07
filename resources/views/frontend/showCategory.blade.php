@@ -3,24 +3,16 @@
 @section("title", $category->name . " - Minijuegos")
 
 @section("content")
-<h1>{{ $category->name }}</h1>
-<div class="container row">
+<h2>{{ $category->name }}</h2>
+
+<div class="deck-cards container">
   @foreach( $games as $game)
-  <div class="card mb-3 mt-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="{{ $game->image }}" class="card-img" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{ $game->title }}</h5>
-          <p class="card-text">{{ substr($game->description, 0, 100) }}...</p>
-          <a href="{{ action('FrontController@showGame', $game->slug) }}" class="stretched-link">Continuar leyendo</a>
-          <p class="card-text"><small class="text-muted">{{ $game->created_at->format("d/m/y") }}</small></p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <article class="card">
+    <img src="{{ $game->image }}" alt="">
+    <a href="{{ action('FrontController@showGame', $game->slug) }}" class="card-title">{{ $game->title}}</a>
+    <p>{{ $game->description }}</p>
+    <span class="card-author">Autor: {{ $game->user->name }}</span>
+  </article>
   @endforeach
 </div>
 @endsection

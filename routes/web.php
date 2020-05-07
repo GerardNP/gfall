@@ -25,5 +25,10 @@ Route::middleware(["auth"])->group(function () {
   Route::resource("/admin/games", "GameController")->except("show");
 });
 
-// Auntenticación 
+// Puntuaciones - Acceso Restringido
+Route::middleware(["auth"])->group(function() {
+  Route::get("/scores", "RegisteredController@showScores");
+});
+
+// Auntenticación
 Auth::routes();

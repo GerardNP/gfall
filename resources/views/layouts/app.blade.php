@@ -91,6 +91,7 @@
 
 
     <!-- FOOTER -->
+    <div class="clear-fix"></div>
     <footer>
       <p>Todos los derechos reservados. Proyecto Fin de Ciclo.</p>
     </footer>
