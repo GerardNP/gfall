@@ -43,7 +43,7 @@
 
 
 <section class="container">
-  <span class="title-section container">Descripción</span>
+  <span class="title-section">Descripción</span>
   {{ $game->description }}
 </section>
 @endsection

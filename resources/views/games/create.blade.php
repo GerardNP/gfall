@@ -3,8 +3,8 @@
 @section("title", "Crear juego - Minijuegos")
 
 @section("content")
-<h2 class="text-center">Crear Juego</h2>
-<form action="{{ action('GameController@store') }}" method="post" enctype="multipart/form-data">
+<h2>Crear Juego</h2>
+<form action="{{ action('GameController@store') }}" method="post" enctype="multipart/form-data" class="container">
   @csrf
   <input type="hidden" name="user_id" value="{{$user->id}}">
 

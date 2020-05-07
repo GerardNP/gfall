@@ -3,14 +3,14 @@
 @section("title", "Crear categoría - Minijuegos")
 
 @section("content")
-<h2 class="text-center">Crear categoría</h2>
-<form action="{{action('CategoryController@store')}}" method="post">
+<h2>Crear categoría</h2>
+<form action="{{action('CategoryController@store')}}" method="post" class="container">
   @csrf
   <div class="form-group">
     <label for="id_name">Nombre</label>
     <input type="text" name="name" id="id_name" class="form-control">
     @if( $errors->has("name") )
-      <strong class="text-danger">{{ $errors->first("name") }}</strong>
+      <span class="text-danger">{{ $errors->first("name") }}</span>
     @endif
   </div>
 

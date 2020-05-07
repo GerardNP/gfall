@@ -5,30 +5,29 @@
 @section("content")
 
 @if(Session::has("message"))
-<div class="alert alert-success">
+<div class="alert alert-success container">
   {{Session::get("message")}}
 </div>
 @endif
 
-<h2 class="text-center mb-3 mt-3">Administración de Categorías</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
+<h2>Administración de Categorías</h2>
+<table class="container">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Acciones</th>
+  </tr>
+
   @if($categories)
     @foreach($categories as $category)
     <tr>
-      <th scope="row">{{$category->id}}</th>
+      <th>{{$category->id}}</th>
       <td>
         <a href="{{ action('FrontController@showCategory', $category->slug) }}">{{$category->name}}</a>
       </td>
-      <td class="d-flex">
-        <a href="{{ action('CategoryController@edit', $category->id) }}" class="btn btn-warning mr-1">Editar</a>
+      <td class="d-flex" style="justify-content: center;">
+        <a href="{{ action('CategoryController@edit', $category->id) }}" class="btn btn-warning">Editar</a>
+        &nbsp;
         <form action="{{ action('CategoryController@destroy', $category->id) }}" method="post">
           @csrf
           @method("DELETE")
@@ -38,8 +37,7 @@
     </tr>
     @endforeach
   @endif
-  </tbody>
 </table>
 
-<a href="{{action('CategoryController@create')}}" class="btn btn-primary btn-block">Crear Categoría</a>
+<a href="{{action('CategoryController@create')}}" class="btn btn-primary btn-block container">Crear Categoría</a>
 @endsection

@@ -3,8 +3,8 @@
 @section("title", "Crear - Juego")
 
 @section("content")
-<h2 class="text-center">Crear Juego</h2>
-<form action="{{ action('GameController@update', $game->id) }}" method="post" enctype="multipart/form-data">
+<h2>Crear Juego</h2>
+<form action="{{ action('GameController@update', $game->id) }}" method="post" enctype="multipart/form-data" class="container">
   @csrf
   @method("PUT")
 
