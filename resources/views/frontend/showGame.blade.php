@@ -1,26 +1,28 @@
 @extends("layouts.app")
-
-@section("title", $game->title . " - Minijuegos")
+@section("title", $game->title . " - GFALL")
 
 @section("content")
-
-<section class="card-info container">
-  <img src="{{ $game->image }}" alt="">
-  <div class="card-info-content">
-    <span class="card-info-title">{{ $game->title }}</span>
-    <span class="card-info-subtitle">
-      Categoría:
-      <a href="{{ action('FrontController@showCategory', $game->category->slug) }}">{{ $game->category->name }}</a>
-    </span>
+<div class="container my-3">
+  <div class="d-flex aling-items-center">
+    <img src="{{ $game->image }}" alt="" width="120" height="80" class="rounded-lg mr-3">
+    <div class="d-flex flex-column ">
+      <span class="h3 font-weight-bold mt-auto mb-0">{{ $game->title }}</span>
+      <p class="mb-auto">
+        Categoría:
+        <a href="{{ action('FrontController@showCategory', $game->category->slug) }}">{{ $game->category->name }}</a>
+      </p>
+      <p class="mb-auto">
+        Autor:
+        <a href="{{ action('AccountController@show', $game->user->name) }}">{{ $game->user->name }}</a>
+      </p>
+    </div>
   </div>
-</section>
-
+</div>
 
 <section class="container-game">
-  <div class="game">
+  <div class="game container">
     @if( $game->slug == "piedra-papel-tijeras-lagarto-spock" )
     <button type="button" class="btn-play" id="btn-play">PLAY!</button>
-
     <div class="content-game" id="content-game">
       <div class="scores" id="scores"></div>
 
@@ -41,9 +43,9 @@
   </div>
 </section>
 
-
-<section class="container">
-  <span class="title-section">Descripción</span>
-  {{ $game->description }}
+<section class="container my-3">
+  <span class="h4">Detalles</span>
+  <hr>
+  <p>{{ $game->description }}</p>
 </section>
 @endsection

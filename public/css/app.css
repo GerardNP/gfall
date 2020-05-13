@@ -1,196 +1,40 @@
-:root {
-  --light-grey: #f1f1f1;
-  --light-grey-dark: #ced4da;
-  --primary: #007bff;
-  --primary-hover: #0062cc;
-  --alert-success: #d4edda;
-  --alert-success-dark: #c3e6cb;
-  --alert-success-darkest: #155724;
-  --warning: #ffc107;
-  --warning-hover: #d39e00;
-  --danger: #dc3545;
-  --danger-hover: #bd2130;
-  box-sizing: border-box;
-}
-
 html {
   min-height: 100%;
   position: relative;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-  font-family: sans-serif; /* a.btn-block */
+hr {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-a {
-  text-decoration: none;
-  color: black;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.img-fluid {
-  width: 100%;
-}
-
-/* ---------------------------------------- TITLE SECTIONS ---------------------------------------- */
-.title-section {
-  display: block;
-  width: 80%;
-  margin: 10px 0;
-  font-size: 1.5em;
-}
-
-.title-section::after {
-  display: block;
-  content: " ";
-  height: 1px;
-  margin-bottom: 15px;
-  background-color: grey;
+/* SOBRESCRITURA */
+.dropdown-menu {
+  left: auto;
+  right: 0;
 }
 
 
-/* ---------------------------------------- TITLE PAGES - CAMBIAR!!!! ---------------------------------------- */
-h2 {
-  text-align: center;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  text-decoration: underline;
+/* MIS CLASES */
+.no-button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
 }
 
-/* ---------------------------------------- BUTTONS  ---------------------------------------- */
-.btn {
-  cursor: pointer;
-  border: 0px;
-  border-radius: 5px;
-  padding: 8px;
-  text-align: center;
-  font-size: 15px;
-}
-
-.btn-primary {
-  background-color: var(--primary);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-}
-
-.btn-warning {
-  background-color: var(--warning);
-  color: black;
-}
-
-.btn-warning:hover {
-  background-color: var(--warning-hover);
-}
-
-.btn-danger {
-  background-color: var(--danger);
-  color: white;
-}
-
-.btn-danger:hover {
-  background-color: var(--danger-hover);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-  font-size: 23px;
-  padding: 10px 0;
-  border-radius: 5px;
-}
-
-
-/* ---------------------------------------- ALERT ---------------------------------------- */
-.alert {
-  width: 100%;
-  color: var(--alert-success-darkest);
-  background-color: var(--alert-success);
-  border: 2px solid var(--alert-success-dark);
-  border-radius: 5px;
-  padding: 20px 25px;
-}
-
-
-/* ---------------------------------------- CONTAINER ---------------------------------------- */
-.container {
-  width: 60%;
-  margin: 0 auto;
-}
-
-
-/* ---------------------------------------- FORM ---------------------------------------- */
-.text-danger {
-  color: #dc3545;
-  font-size: 15px;
-}
-
-.form-group {
-  margin: 20px 0px;
-  font-size: 18px;
-}
-
-.form-control {
-  display: block;
-  width: 100%;
-  padding: 10px 15px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px var(--light-grey-dark) solid;
-  font-size: 19px;
-  color: #6d6d6d;
-}
-
-.form-control-file {
-  display: block;
-  margin-top: 10px;
-}
-
-
-/* ---------------------------------------- NAV ---------------------------------------- */
-nav {
-  padding: 1em 2em;
-  background-color: #2f3237;
-  color: white;
-}
-
-nav a {
-  text-decoration: none;
-  color: white;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Categories Nav */
-#button-menu {
-  cursor: pointer;
-}
-
-.menu-categories {
+/* SIDEBAR */
+#sidebar-menu {
   width: 0px;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   z-index: 1;
-  /*  top: 0; */
+  top: 0;
   background-color: #3a3d42;
   overflow-x: hidden;
   /*  padding-top: 60px; */
   transition: 0.5s;
 }
 
-.menu-categories a {
+#sidebar-menu a {
   display: block;
   padding: 0.8em 1em;
   text-decoration: none;
@@ -199,164 +43,11 @@ nav a {
   transition: 0.3s;
 }
 
-.menu-categories a:hover {
+#sidebar-menu a:hover {
   color: white;
 }
 
-.title a {
-  font-size: 2em;
-}
-
-/* OPTIONS */
-.options, .search-nav {
-  display: flex;
-  align-items: center;
-}
-
-/* SEARCH NAV */
-.search-nav {
-  margin-right: 10px;
-}
-
-#search-nav {
-  margin-right: 5px;
-  border-radius: 8px;
-  border: 0px;
-  padding: 10px;
-}
-
-/* Dropdown Account */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-#button-account {
-  cursor: pointer;
-}
-
-.dropdown-content {
-  width: 150px;
-  display: none;
-  position: absolute;
-  right: 0;
-  z-index: 1;
-  background-color: var(--light-grey);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  text-align: center;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 0.8em 1em;
-  color: black;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
-}
-
-
-/* ---------------------------------------- DECK CARDS ---------------------------------------- */
-.deck-cards {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.deck-cards a {
-  text-decoration: none;
-  color: black;
-}
-
-
-/* ---------------------------------------- CARD ---------------------------------------- */
-.card {
-  width: 250px;
-  padding: 0.5em 0.5em;
-  border: 1px solid grey;
-  border-radius: 5px;
-  margin: 0.5em 0.5em;
-  background-color: var(--light-grey);
-}
-
-.card:hover {
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.card img {
-  display: block;
-  width: 100%;
-  height: 150px;
-}
-
-.card-title {
-  display: block;
-  margin: 8px 0;
-  font-size: 1em;
-  text-align: center;
-  font-weight: bold;
-}
-
-.card p {
-  font-size: 0.8em;
-  color: grey;
-}
-
-.card-author {
-  font-size: 0.8em;
-  font-weight: bold;
-}
-
-.card-info {
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.card-info img {
-  width: 100px;
-  height: 70px;
-  border-radius: 8px;
-  margin-right: 15px;
-}
-
-.card-info-title {
-  display: block;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-
-/* ---------------------------------------- TABLE ----------------------------------------    */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 auto;
-}
-
-table tr:nth-child(even){
-  background-color: var(--light-grey);
-}
-
-th, td {
-  border-top: 2px solid #f3f3f3;
-  padding: .75rem;
-}
-
-th {
-  font-size: 1.2em;
-}
-
-td {
-  text-align: center;
-}
-
-/* ---------------------------------------- CONTAINER GAME & GAME ----------------------------------------    */
+/* CONTAINER GAME*/
 .container-game {
   width: 100%;
   height: 600px;
@@ -364,29 +55,17 @@ td {
 }
 
 .game {
-  width: 900px;
-  height: 100%;
-  margin: 0 auto;
+  height: inherit;
   background-color: black;
 }
 
-
-/* ---------------------------------------- FOOTER ---------------------------------------- */
-.clear-fix {
-  height: 50px;
+/* FOOTER */
+.clear-footer {
+  height: 56px;
   content: "";
-  margin-top: 15px;
 }
 
 footer {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 1em 0;
-  background-color: #2f3237;
-  color: white;
-
   position: absolute;
   bottom: 0;
 }
