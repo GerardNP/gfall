@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Game;
-use App\User;
 use Auth;
+use App\User;
+use App\Account;
 use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -21,38 +22,34 @@ class GameController extends Controller
 
   public function create()
   {
-    $user = User::find(Auth::User()->id);
+    $user = User::find(Auth::user()->id);
+    $account = $user->account;
     $categories = Category::all();
-    return view( "games.create", compact("user", "categories") );
+    return view( "games.create", compact("user", "account", "categories") );
   }
 
   public function store(Request $request)
   {
     // Validación
     $rules = [
-      "title" => "required",
-      "image" => "required | mimes:jpeg,bmp,png,jpg,gif|max:1000",
-      "description" => "required"
+      "name" => "required|unique:games",
+      "img" => "required|image",
     ];
-
     $messages = [
-      "title.required" => "Es obligatorio rellenar este campo",
-      "description.required" => "Es obligatorio rellenar este campo",
-      "image.required" => "Es obligatorio seleccionar una imagen",
-      "image.mimes" => "El archivo debe tener un formato de imagen",
-      "image.max" => "La imagen no debe ser mayor que 1MB",
+      "name.required" => "Es obligatorio rellenar este campo",
+      "name.unique" => "Ya existe una categoría con ese nombre",
+      "img.required" => "Es obligatorio subir un archivo",
+      "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
     ];
-
     $this->validate($request, $rules, $messages);
 
     $game = new Game( $request->all() );
-    $game->slug = Str::slug($request->title);
+    $game->slug = Str::slug($request->name);
+    $game->published = false;
+    $game->featured = false;
+    $path = Storage::disk("myDisk")->put("img/games", $request->file("img"));
+    $game->img = $path;
     $game->save();
-
-    if ( $request->file("image") ) {
-      $nombre = Storage::disk('imgGames')->put("imagenes/games", $request->file("image") );
-      $game->fill( ["image" => asset($nombre)] )->save();
-    }
 
     Session::flash("message", "Juego creado correctamente");
     return redirect( action("GameController@index") );
@@ -69,27 +66,27 @@ class GameController extends Controller
   {
     // Validación
     $rules = [
-      "title" => "required",
-      "image" => "mimes:jpeg,bmp,png,jpg,gif|max:1000",
-      "description" => "required"
+      "name" => "required|unique:games",
+      "img" => "image"
     ];
-
     $messages = [
-      "title.required" => "Es obligatorio rellenar este campo",
-      "description.required" => "Es obligatorio rellenar este campo",
-      "image.mimes" => "El archivo debe tener un formato de imagen",
-      "image.max" => "La imagen no debe ser mayor que 1MB",
+      "name.required" => "Es obligatorio rellenar este campo",
+      "name.unique" => "Ya existe una categoría con ese nombre",
+      "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
     ];
-
     $this->validate($request, $rules, $messages);
 
     $game = Game::find($id);
-    $game->slug = Str::slug($request->title);
+    $imgPath = $game->img;
     $game->update( $request->all() );
+    $game->slug = Str::slug($request->name);
+    $game->save();
 
-    if ( $request->file("image") ) {
-      $nombre = Storage::disk('imgGames')->put("imagenes/games", $request->file("image") );
-      $game->fill( ["image" => asset($nombre)] )->save();
+    if ( $request->file("img") ) {
+      Storage::disk("myDisk")->delete($imgPath);
+      $path = Storage::disk("myDisk")->put("img/games", $request->file("img"));
+      $game->img = $path;
+      $game->save();
     }
 
     Session::flash("message", "Juego actualizado correctamente");
@@ -98,7 +95,10 @@ class GameController extends Controller
 
   public function destroy($id)
   {
-    $game = Game::find($id)->delete();
+    $game = Game::find($id);
+    $imgPath = $game->img;
+    Storage::disk("myDisk")->delete($imgPath);
+    $game->delete();
 
     Session::flash("message", "Juego eliminado correctamente");
     return redirect( action("GameController@index") );

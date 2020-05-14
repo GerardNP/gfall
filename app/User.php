@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'img', 'description', 
+        'name', 'email', 'password', 'img', 'description',
     ];
 
     /**
@@ -36,6 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function account()
+    {
+      return $this->belongsTo("App\Account");
+    }
 
     public function games()
     {

@@ -5,7 +5,7 @@ if ( document.getElementById("logout") ) {
 }
 
 function logout() {
-  document.formLogout.submit();
+  document.getElementById('logout-form').submit();
 }
 
 function showSidebar() {

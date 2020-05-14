@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
-use Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -24,17 +25,22 @@ class CategoryController extends Controller
   {
     // Validación
     $rules = [
-      "name" => "required",
+      "name" => "required|unique:categories",
+      "img" => "required|image",
     ];
-
     $messages = [
-      "name.required" => "Es obligatorio rellenar este campo"
+      "name.required" => "Es obligatorio rellenar este campo",
+      "name.unique" => "Ya existe una categoría con ese nombre",
+      "img.required" => "Es obligatorio subir un archivo",
+      "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
     ];
-
     $this->validate($request, $rules, $messages);
 
     $category = new Category( $request->all() );
     $category->slug = Str::slug($request->name);
+    $category->featured = false;
+    $path = Storage::disk("myDisk")->put("img/admin/categories", $request->file("img"));
+    $category->img = $path;
     $category->save();
 
     Session::flash("message", "Categoría creada correctamente");
@@ -51,24 +57,40 @@ class CategoryController extends Controller
   {
     // Validación
     $rules = [
-      "name" => "required",
+      "name" => "required|unique:categories",
+      "img" => "image"
     ];
-
     $messages = [
-      "name.required" => "Es obligatorio rellenar este campo"
+      "name.required" => "Es obligatorio rellenar este campo",
+      "name.unique" => "Ya existe una categoría con ese nombre",
+      "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
     ];
-
     $this->validate($request, $rules, $messages);
 
     $category = Category::find($id);
-    $category->update($request->all());
+    $imgPath = $category->img;
+    $category->update( $request->all() );
+    $category->slug = Str::slug($request->name);
+    $category->save();
+
+    if ( $request->file("img") ) {
+      Storage::disk("myDisk")->delete($imgPath);
+      $path = Storage::disk("myDisk")->put("img/admin/categories", $request->file("img"));
+      $category->img = $path;
+      $category->save();
+    }
+
     Session::flash("message", "Categoría actualizada correctamente");
     return redirect( action("CategoryController@index") );
   }
 
   public function destroy($id)
   {
-    Category::find($id)->delete();
+    $category = Category::find($id);
+    $imgPath = $category->img;
+    Storage::disk("myDisk")->delete($imgPath);
+    $category->delete();
+
     Session::flash("message", "Categoría eliminada correctamente");
     return redirect( action("CategoryController@index") );
   }

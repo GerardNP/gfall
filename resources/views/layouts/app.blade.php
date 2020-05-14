@@ -10,6 +10,12 @@
 
     <title> @yield("title") </title>
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" defer integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" defer integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     <!-- My scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     @if( url()->current() == "http://minijuegos.test/game/piedra-papel-tijeras-lagarto-spock" )
@@ -18,6 +24,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <!-- My styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @if( url()->current() == "http://minijuegos.test/game/piedra-papel-tijeras-lagarto-spock" )
@@ -33,9 +40,9 @@
         </svg>
       </button>
 
-      <a href="{{ action('FrontController@index') }}" class=" text-white h3 text-decoration-none">🎮GFALL</a>
+      <a href="/" class=" text-white h3 text-decoration-none">🎮GFALL</a>
 
-      <form class="form-inline">
+      <div class="form-inline">
         <button type="button" class="no-button text-white">
           <svg class="bi bi-search" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
@@ -56,25 +63,22 @@
             <a class="dropdown-item" href="{{ route('login') }}">Iniciar sesión</a>
             <a class="dropdown-item" href="{{ route('register') }}">Registrarse</a>
             @else
-            <a class="dropdown-item" href="">Perfil</a>
+            <a class="dropdown-item" href="">Perfil - {{ Auth::user()->name }}</a>
             <a class="dropdown-item" href="">Favoritos</a>
             <a class="dropdown-item" href="">Puntuaciones</a>
-            <form action="{{ route('logout') }}" method="post" name="formLogout">
+            <a class="dropdown-item" href="" id="logout">Cerrar sesión</a>
+            <form action="{{ route('logout') }}" method="post" id="logout-form" name="formLogout">
               @csrf
-              <a class="dropdown-item" href="#" id="logout">Cerrar sesión</a>
             </form>
             @endguest
           </div>
         </div>
 
-      </form>
+      </div>
     </nav>
 
     <div id="sidebar-menu">
-      <a href="{{ action('FrontController@showCategory', 'accion') }}">Acción</a>
-      <a href="{{ action('FrontController@showCategory', 'aventura') }}">Aventura</a>
-      <a href="{{ action('FrontController@showCategory', 'estrategia') }}">Estrategia</a>
-      <a href="{{ action('FrontController@showCategory', 'otro') }}">Otro</a>
+
     </div>
 
 
@@ -89,15 +93,10 @@
     <footer class="bg-dark w-100 py-3">
       <p class="text-center text-white my-0">Todos los derechos reservados. Proyecto Fin de Ciclo.</p>
     </footer>
-
+    
 
     <script>
       var asset = "{{ asset('') }}";
     </script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>

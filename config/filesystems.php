@@ -55,13 +55,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'imgGames' => [
-            'driver' => 'local',
-            'root' => public_path(),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-        ],
-
         'myDisk' => [
             'driver' => 'local',
             'root' => public_path(),

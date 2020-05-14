@@ -1,53 +1,63 @@
 @extends("layouts.app")
-
-@section("title", "Juegos - Minijuegos")
+@section("title", "Admin - Juegos - GFALL")
 
 @section("content")
-
 @if(Session::has("message"))
-<div class="alert alert-success container">
+<div class="alert alert-success container mt-3">
   {{Session::get("message")}}
 </div>
 @endif
 
-<h2>Administración de Juegos</h2>
-<table class="container">
+<h2 class="text-center mt-3">Administración de Juegos</h2>
+<table class="container table">
   <tr>
+    <th></th><!-- FEATURED -->
     <th>ID</th>
-    <th>Título</th>
-    <th>Descripción</th>
-    <th>Categoría</th>
-    <th>Autor</th>
     <th>Portada</th>
+    <th>Nombre</th>
+    <th>Estado</th>
+    <th>Detalles</th>
     <th>Acciones</th>
   </tr>
 
   @if($games)
     @foreach($games as $game)
     <tr>
+      <td>
+        @if( $game->featured == true)
+        <img src="{{ asset('img/admin/featured.svg')}}" alt="" height="40">
+        @endif
+      </td>
+
       <th>{{ $game->id }}</th>
+
+      <td><img src="{{ asset($game->img) }}" alt="" height="50"></td>
+
+      <td><a href="">{{ $game->name }}</a></td>
+
       <td>
-        <a href="{{ action('FrontController@showGame', $game->slug) }}">{{ $game->title }}</a>
+        @if( $game->published == true)
+        <img src="{{ asset('img/admin/published.svg') }}" alt="" height="40">
+        @else
+        <img src="{{ asset('img/admin/not-published.svg') }}" alt="" height="40">
+        @endif
       </td>
-      <td>{{ $game->description }}</td>
+
       <td>
-        <a href="{{ action('FrontController@showCategory', $game->category->slug) }}">{{ $game->category->name }}
+        <p>{{ $game->desc }}</p>
       </td>
-      <td>{{ $game->user->name }}</td>
-      <td><img src="{{ $game->image }}" width="60" height="60" class="img-fluid"></td>
+
       <td class="d-flex">
         <a href="{{ action('GameController@edit', $game->id) }}" class="btn btn-warning mr-1">Editar</a>
-        &nbsp;
         <form action="{{ action('GameController@destroy', $game->id) }}" method="post">
           @csrf
           @method("DELETE")
-          <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('¿Está seguro que quiere eliminar esta juego?')">Eliminar</button>
+          <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('¿Está seguro que quiere eliminar este juego?')">Eliminar</button>
         </form>
       </td>
+
     </tr>
     @endforeach
   @endif
 </table>
-
-<a href="{{action('GameController@create')}}" class="btn btn-block btn-primary container">Crear Juego</a>
 @endsection

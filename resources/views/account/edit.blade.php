@@ -8,36 +8,28 @@
 
     <div class="row">
       <div class="col-4">
-        <!-- Imagen -->
-        <div class="form-group">
+        <div class="form-group"><!-- Imagen -->
           <label for="id_img">
-            @if( empty($user->img) )
-            <img src="{{ asset('users/default.svg') }}" alt="" class="img-fluid img-thumbnail">
-            @else
-            <img src="{{ asset($user->img) }}" alt="" class="img-fluid img-thumbnail">
-            @endif
+            <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
           </label>
           <input type="file" name="img" class="form-control-file" id="id_img">
         </div>
       </div>
 
       <div class="col-8">
-        <!-- Nombre -->
-        <div class="form-group">
+        <div class="form-group"><!-- Nombre -->
           <label for="id_name">Nombre</label>
           <input type="text" name="name" value="{{ $user->name }}" class="form-control" id="id_name">
         </div>
 
-        <!-- Descripción -->
-        <div class="form-group">
-          <label for="id_decription">Descripción</label>
-          <textarea name="description" rows="8" class="form-control" id="id_decription">{{ $user->description }}</textarea>
+        <div class="form-group"><!-- Descripción -->
+          <label for="id_dec">Descripción</label>
+          <textarea name="desc" rows="8" class="form-control" id="id_dec">{{ $account->desc }}</textarea>
         </div>
 
-        <!-- Botones -->
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center"><!-- Botones -->
           <button type="submit" class="btn btn-primary mr-1">Guardar cambios</button>
-          <a href="{{ action('AccountController@edit') }}" class="btn btn-secondary ml-1">Cancelar</a>
+          <a href="{{ action('AccountController@show', $account->slug) }}" class="btn btn-secondary ml-1">Cancelar</a>
         </div>
       </div>
     </div>

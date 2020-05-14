@@ -4,18 +4,14 @@
 <div class="container mt-4">
 
   <div class="row">
-    <div class="col-4">
-      @if( empty($user->img) )
-      <img src="{{ asset('users/default.svg') }}" alt="" class="img-fluid img-thumbnail">
-      @else
-      <img src="{{ asset($user->img) }}" alt="" class="img-fluid img-thumbnail">
-      @endif
+    <div class="col-4"><!-- IMG -->
+      <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
       <p class="h4 text-center mt-2">{{ $user->name }}</p>
-      <p>{{ $user->description }}</p>
+      <p>{{ $account->desc }}</p>
     </div>
 
     <div class="col-8">
-      <p class="h4">Categorías</p>
+      <p class="h4">Categorías</p><!-- CATEGORIES -->
       <hr class="mb-3">
       <div class="row">
         @if ( empty($categories) )
@@ -35,7 +31,7 @@
         @endif
       </div>
 
-      <p class="h4 mt-3">Juegos</p>
+      <p class="h4 mt-3">Juegos</p><!-- GAMES -->
       <hr class="mb-3">
       <div class="row mb-3">
         @if( empty($games[0]) )
