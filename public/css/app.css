@@ -22,6 +22,10 @@ hr {
 }
 
 /* SIDEBAR */
+#close {
+  cursor: pointer;
+}
+
 #sidebar-menu {
   width: 0px;
   height: 100%;
@@ -30,16 +34,28 @@ hr {
   top: 0;
   background-color: #3a3d42;
   overflow-x: hidden;
-  /*  padding-top: 60px; */
   transition: 0.5s;
+}
+
+#sidebar-menu span {
+  padding: 0.8em 1em;
+  text-decoration: none;
+  color: white;
+  font-size: 1.5em;
+  transition: 0.3s;
+}
+
+#sidebar-menu div.head {
+  height: 80px;
+  border-bottom: 1px solid grey;
 }
 
 #sidebar-menu a {
   display: block;
-  padding: 0.8em 1em;
+  margin: 1.3em 1em;
   text-decoration: none;
   color: grey;
-  font-size: 1.1em;
+  font-size: 1.2em;
   transition: 0.3s;
 }
 

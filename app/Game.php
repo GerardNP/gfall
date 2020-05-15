@@ -15,9 +15,9 @@ class Game extends Model
     return $this->belongsTo("App\Category");
   }
 
-  public function user()
+  public function account()
   {
-    return $this->belongsTo("App\User");
+    return $this->belongsTo("App\Account");
   }
 
   public function scores()

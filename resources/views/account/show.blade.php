@@ -8,6 +8,7 @@
       <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
       <p class="h4 text-center mt-2">{{ $user->name }}</p>
       <p>{{ $account->desc }}</p>
+      <a href="{{ action('ScoreController@show', $account->slug) }}">Puntuaciones</a>
     </div>
 
     <div class="col-8">
@@ -16,14 +17,15 @@
       <div class="row">
         @if ( empty($categories) )
         <div class="col-auto">
-          Sin aportaciones a ninguna cateogoría.
+          Sin aportaciones a ninguna categoría.
         </div>
         @else
           @foreach( $categories as $category)
           <div class="col-4 mb-2">
-            <a href="{{ action('FrontController@showCategory', $category->slug) }}">
-              <div class="card">
-                <h6 class="card-text text-center text-truncate px-1 py-1">{{ $category->name }}</h6>
+            <a href="{{ action('CategoryController@show', $category->slug) }}">
+              <div class="d-flex flex-row justify-content-center align-items-center border rounded-pill py-2">
+                <img src="{{ asset($category->img) }}" alt="" height="30">
+                <h6 class="card-title text-center text-truncate mb-0 ml-2">{{ $category->name }}</h6>
               </div>
             </a>
           </div>
@@ -41,21 +43,26 @@
         @else
           @foreach( $games as $game)
           <div class="col-4 mb-2">
-            <a href="{{ action('FrontController@showGame', $game->slug) }}">
+            <a href="{{ action('GameController@show', $game->slug) }}">
               <div class="card">
-                <img src="{{ $game->image }}" alt="" class="img-fluid">
-                <h6 class="card-text text-center text-truncate px-1 py-1">{{ $game->title }}</h6>
+                <img src="{{ asset($game->img) }}" alt="" class="img-fluid">
+                <h6 class="card-text text-center text-truncate px-1 py-1">{{ $game->name }}</h6>
               </div>
             </a>
           </div>
           @endforeach
+          <div class="row mt-3">
+            <div class="col-4">
+              <a href="{{ action('GameController@create') }}"><img src="{{ asset('img/admin/add.svg') }}" alt="" height="50"></a>
+            </div>
+          </div>
         @endif
       </div>
     </div>
   </div>
 
   @if($aux)
-    <a href="{{ action('AccountController@edit') }}" class="btn btn-block btn-primary mb-3">Editar perfil</a>
+    <a href="{{ action('AccountController@edit') }}" class="btn btn-block btn-primary my-3">Editar perfil</a>
   @endif
 </div>
 @endsection

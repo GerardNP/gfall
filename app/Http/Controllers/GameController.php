@@ -11,13 +11,27 @@ use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Session;
+use Illuminate\Support\Facades\Gate;
 
 class GameController extends Controller
 {
   public function index()
   {
-    $games = Game::all();
-    return view( "games.index", compact("games") );
+    $user = Auth::user();
+    if ( Gate::allows("isAdmin", $user)) {
+      print_r("ADMIN");
+      $games = Game::all();
+      return view( "games.index", compact("games") );
+
+    } else {
+      Gate::authorize("isAdmin", $user);
+    }
+  }
+
+  public function show($slug)
+  {
+    $game = Game::where("slug", $slug)->first();
+    return view( "games.show", compact("game") );
   }
 
   public function create()
@@ -57,6 +71,8 @@ class GameController extends Controller
 
   public function edit($id)
   {
+    // $user = Auth::user();
+    // Gate::authorize("isAdmin", $user)
     $game = Game::find($id);
     $categories = Category::all();
     return view( "games.edit", compact("game", "categories") );

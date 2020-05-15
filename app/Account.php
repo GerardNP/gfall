@@ -12,6 +12,16 @@ class Account extends Model
 
   public function user()
   {
-    return $this->belongsTo("App\User");
+    return $this->hasOne("App\User");
+  }
+
+  public function games()
+  {
+    return $this->hasMany("App\Game");
+  }
+
+  public function scores()
+  {
+    return $this->hasMany("App\Scores");
   }
 }

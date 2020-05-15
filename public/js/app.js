@@ -1,5 +1,7 @@
 
 document.getElementById("navbarSidebar").addEventListener("click", showSidebar);
+document.getElementById("close").addEventListener("click", closeSidebar);
+
 if ( document.getElementById("logout") ) {
   document.getElementById("logout").addEventListener("click", logout);
 }
@@ -10,9 +12,11 @@ function logout() {
 
 function showSidebar() {
   var sMenu = document.getElementById("sidebar-menu");
-  if ( sMenu.style.width == "0px" ) {
-    sMenu.style.width = "200px";
-  } else {
-    sMenu.style.width = "0px";
-  }
+  sMenu.style.width = "230px";
+
+}
+
+function closeSidebar() {
+  var sMenu = document.getElementById("sidebar-menu");
+  sMenu.style.width = "0px";
 }

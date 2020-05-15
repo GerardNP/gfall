@@ -10,28 +10,25 @@
 
     <title> @yield("title") </title>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Optional JavaScript: jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" defer integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" defer integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- My scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    @if( url()->current() == "http://minijuegos.test/game/piedra-papel-tijeras-lagarto-spock" )
-    <script src="{{ asset('piedra-papel-tijeras-lagarto-spock/scripts.js') }}" defer></script>
-    @endif
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- My styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @if( url()->current() == "http://minijuegos.test/game/piedra-papel-tijeras-lagarto-spock" )
-    <link href="{{ asset('piedra-papel-tijeras-lagarto-spock/styles.css') }}" rel="stylesheet">
-    @endif
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('img/admin/favicon.svg') }}">
   </head>
   <body>
+
     <!-- NAV -->
     <nav class="navbar bg-dark py-3 justify-align-center">
       <button type="button" class="no-button text-white" id="navbarSidebar">
@@ -40,7 +37,9 @@
         </svg>
       </button>
 
-      <a href="/" class=" text-white h3 text-decoration-none">🎮GFALL</a>
+      <a href="/" class=" text-white h3 text-decoration-none">
+        <img src="{{ asset('img/admin/favicon.svg') }}" alt="" height="35">
+        GFALL</a>
 
       <div class="form-inline">
         <button type="button" class="no-button text-white">
@@ -52,20 +51,26 @@
 
         <div class="nav-item dropdown">
           <button type="button" class="no-button text-white nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+            @guest
             <svg class="bi bi-people-circle" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
               <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
               <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
             </svg>
+            @else
+            <img src="{{ asset(Auth::user()->account->img) }}" alt="" height="32">
+            @endguest
           </button>
           <div class="dropdown-menu">
             @guest
             <a class="dropdown-item" href="{{ route('login') }}">Iniciar sesión</a>
             <a class="dropdown-item" href="{{ route('register') }}">Registrarse</a>
             @else
-            <a class="dropdown-item" href="">Perfil - {{ Auth::user()->name }}</a>
-            <a class="dropdown-item" href="">Favoritos</a>
-            <a class="dropdown-item" href="">Puntuaciones</a>
+            @if(Auth::user()->account->admin)
+            <a class="dropdown-item" href="#">Administración</a>
+            @endif
+            <a class="dropdown-item" href="{{ action('AccountController@show', Auth::user()->account->slug) }}">Perfil</a>
+            <a class="dropdown-item" href="#">Favoritos</a>
             <a class="dropdown-item" href="" id="logout">Cerrar sesión</a>
             <form action="{{ route('logout') }}" method="post" id="logout-form" name="formLogout">
               @csrf
@@ -78,7 +83,18 @@
     </nav>
 
     <div id="sidebar-menu">
-
+      <div class="d-flex align-items-center head">
+        <span>Categorías</span>
+        <img src="{{ asset('img/admin/close.svg') }}" alt="" height="25" id="close" class="mt-1">
+      </div>
+      @if( $auxCategories )
+        @foreach( $auxCategories as $auxCategory )
+            <a href="{{ action('CategoryController@show', $auxCategory->slug) }}" class="d-flex align-items-center flex-nowrap">
+              <img src="{{ asset($auxCategory->img) }}" alt="" height="32" class="mr-2">
+              {{ $auxCategory->name }}
+            </a>
+        @endforeach
+      @endif
     </div>
 
 
@@ -87,13 +103,17 @@
       @yield("content")
     </main>
 
-
+    <div class="">
+      @isset($user)
+      {{$user->account->admin}}
+      @endif
+    </div>
     <!-- FOOTER -->
     <div class="clear-footer"></div>
     <footer class="bg-dark w-100 py-3">
       <p class="text-center text-white my-0">Todos los derechos reservados. Proyecto Fin de Ciclo.</p>
     </footer>
-    
+
 
     <script>
       var asset = "{{ asset('') }}";

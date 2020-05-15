@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Score extends Model
 {
     //
-    public function user()
+    public function account()
     {
-      return $this->belongsTo("App\User");
+      return $this->belongsTo("App\Account");
     }
 
     public function game()

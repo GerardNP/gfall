@@ -16,6 +16,12 @@ class CategoryController extends Controller
     return view( "categories.index", compact("categories") );
   }
 
+  public function show($slug) {
+    $category = Category::where("slug", $slug)->first();
+    $games = $category->games->where("published", true);
+    return view( "categories.show", compact("category", "games") );
+  }
+
   public function create()
   {
     return view("categories.create");

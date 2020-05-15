@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Front - Acceso Público
-Route::get("/", function() {
-  return view("home");
-});
+Route::get("/", "HomeController@index");
 
 // Cuenta
 Route::get("/profile/{slug}", "AccountController@show");
@@ -27,16 +25,14 @@ Route::middleware(["auth"])->group( function () {
 
 // Categorías
 Route::resource("/admin/categories", "CategoryController")->except("show")->middleware("auth");
-Route::get("/admin/categories/{category}", "CategoryController@show");
+Route::get("/categories/{category}", "CategoryController@show");
 
 //Juegos
 Route::resource("/admin/games", "GameController")->except("show")->middleware("auth");
-Route::get("/admin/games/{game}", "GameController@show");
+Route::get("/games/{game}", "GameController@show");
 
-// // Puntuaciones - Acceso Restringido
-// Route::middleware(["auth"])->group(function() {
-//   Route::get("/scores", "RegisteredController@showScores");
-// });
+// Puntuaciones
+Route::get("/profile/{slug}/scores", "ScoreController@show");
 
 // Auntenticación
 Auth::routes();
