@@ -46,7 +46,7 @@
                         <label for="desc" class="col-md-4 col-form-label text-md-right">Descripción</label>
 
                         <div class="col-md-6">
-                            <textarea name="desc" id="desc" class="form-control">{{ $game->desc }}</textarea>
+                            <textarea name="desc" id="desc" class="form-control" rows="5">{{ $game->desc }}</textarea>
                         </div>
                     </div>
 
@@ -55,12 +55,12 @@
 
                       <div class="col-md-6 ml-4">
                         <div class="form-check">
-                          <input type="radio" name="featured" id="featured-si" value="1" class="form-check-input" @if( $category->featured == true) checked @endif>
+                          <input type="radio" name="featured" id="featured-si" value="1" class="form-check-input" @if( $game->featured == true ) checked @endif>
                           <label class="form-check-label" for="featured-si">Sí</label>
                         </div>
 
                         <div class="form-check">
-                          <input type="radio" name="featured" id="featured-no" value="0" class="form-check-input" @if( $category->featured == false) checked @endif>
+                          <input type="radio" name="featured" id="featured-no" value="0" class="form-check-input" @if( $game->featured == false ) checked @endif>
                           <label class="form-check-label" for="featured-no">No</label>
                         </div>
                         @error('featured')
@@ -74,12 +74,12 @@
 
                       <div class="col-md-6 ml-4">
                         <div class="form-check">
-                          <input type="radio" name="published" id="published-si" value="1" class="form-check-input" @if( $category->published == true) checked @endif>
+                          <input type="radio" name="published" id="published-si" value="1" class="form-check-input" @if( $game->published == true ) checked @endif>
                           <label class="form-check-label" for="published-si">Publicado</label>
                         </div>
 
                         <div class="form-check">
-                          <input type="radio" name="published" id="published-no" value="0" class="form-check-input" @if( $category->published == false) checked @endif>
+                          <input type="radio" name="published" id="published-no" value="0" class="form-check-input" @if( $game->published == false ) checked @endif>
                           <label class="form-check-label" for="published-no">En revisión</label>
                         </div>
                         @error('published')

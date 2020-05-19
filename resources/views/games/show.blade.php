@@ -1,29 +1,31 @@
 @extends("layouts.app")
-@section("title", $game->title . " - GFALL")
+@section("title", $game->name . " - GFALL")
 
 @section("content")
-<div class="container my-3">
-  <div class="d-flex aling-items-center">
+<section style="background-color: var(--blue-secondary);" class="py-3">
+  <div class="media container">
     <img src="{{ asset($game->img) }}" alt="" width="120" height="80" class="rounded-lg mr-3">
-    <div class="d-flex flex-column ">
-      <span class="h3 font-weight-bold mt-auto mb-0">{{ $game->name }}</span>
-      <p class="mb-auto">
-        Categoría:
-        <a href="">{{ $game->category->name }}</a>
-      </p>
-      <p class="mb-auto">
-        Autor:
-        <a href=""></a>
-      </p>
+    <div class="media-body"style="color: var(--white);">
+      <h3 class="">{{ $game->name }}</h3>
+      <span class="my-breadcrumb" style="font-size: 20px;">
+        <a href="{{ action('GameController@showAll') }}" class="text-decoration-none font-weight-light" style="color: var(--white);">Juegos</a> /
+        <span class="font-weight-bolder"><a href="{{ action('CategoryController@show', $game->category->slug) }}" class="text-decoration-none" style="color: var(--white);">{{ $game->category->name }}</a></span>
+      </span>
     </div>
+    <a href="{{ action('AccountController@show', $game->account->slug) }}" class="my-auto mr-2">
+      <img src="{{ asset($game->account->img) }}" alt="" height="60" class="rounded-circle">
+    </a>
+    <a href="#" class="my-auto">
+      <img src="{{ asset('img/admin/scores.svg') }}" alt="" height="60" >
+    </a>
   </div>
-</div>
+</section>
 
 <section class="container-game" style="background-image: url({{ asset('img/admin/background.png') }})">
   <div class="game container"></div>
 </section>
 
-<section class="container my-3">
+<section class="container mt-3">
   <span class="h4">Detalles</span>
   <hr>
   <p>{{ $game->desc }}</p>

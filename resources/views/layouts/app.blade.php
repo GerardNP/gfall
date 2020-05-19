@@ -38,7 +38,6 @@
       </button>
 
       <a href="/" class=" text-white h3 text-decoration-none">
-        <img src="{{ asset('img/admin/favicon.svg') }}" alt="" height="35">
         GFALL</a>
 
       <div class="form-inline">
@@ -58,7 +57,7 @@
               <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z" clip-rule="evenodd"/>
             </svg>
             @else
-            <img src="{{ asset(Auth::user()->account->img) }}" alt="" height="32">
+            <img src="{{ asset(Auth::user()->account->img) }}" alt="" height="32" class="rounded-circle">
             @endguest
           </button>
           <div class="dropdown-menu">
@@ -67,12 +66,16 @@
             <a class="dropdown-item" href="{{ route('register') }}">Registrarse</a>
             @else
             @if(Auth::user()->account->admin)
-            <a class="dropdown-item" href="#">Administración</a>
+            <h6 class="dropdown-header">Administración</h6>
+            <a class="dropdown-item" href="{{ action('CategoryController@index') }}">Categorías</a>
+            <a class="dropdown-item" href="{{ action('GameController@index') }}">Juegos</a>
+            <div class="dropdown-divider"></div>
             @endif
+            <h6 class="dropdown-header">Cuenta</h6>
             <a class="dropdown-item" href="{{ action('AccountController@show', Auth::user()->account->slug) }}">Perfil</a>
             <a class="dropdown-item" href="#">Favoritos</a>
-            <a class="dropdown-item" href="" id="logout">Cerrar sesión</a>
-            <form action="{{ route('logout') }}" method="post" id="logout-form" name="formLogout">
+            <a class="dropdown-item" href="#" id="logout">Cerrar sesión</a>
+            <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-none">
               @csrf
             </form>
             @endguest
@@ -103,11 +106,7 @@
       @yield("content")
     </main>
 
-    <div class="">
-      @isset($user)
-      {{$user->account->admin}}
-      @endif
-    </div>
+
     <!-- FOOTER -->
     <div class="clear-footer"></div>
     <footer class="bg-dark w-100 py-3">
@@ -115,8 +114,8 @@
     </footer>
 
 
-    <script>
+    <!-- <script> PARA QUE SIRVE ESTO¿?
       var asset = "{{ asset('') }}";
-    </script>
+    </script> -->
   </body>
 </html>

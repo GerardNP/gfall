@@ -1,18 +1,19 @@
 @extends("layouts.app")
-
-@section("title", $category->name . " - GFALL")
+@section("title", "Juegos - GFALL")
 
 @section("content")
 <div style="background-color: var(--blue-secondary);" class="mb-3 py-3">
   <div class="media align-items-center container">
-    <img src="{{ asset($category->img) }}" alt="" height="60" class="mr-3">
+    <img src="{{ asset('img/admin/games.svg') }}" alt="" height="60" class="mr-3">
     <div class="media-body"style="color: var(--white);">
       <span class="my-breadcrumb" style="font-size: 20px;">
-        <a href="{{ action('GameController@showAll') }}" class="text-decoration-none font-weight-light" style="color: var(--white);">Juegos</a> /
-        <span class="font-weight-bolder">{{ $category->name }}</span>
+        <span class="font-weight-bolder">Juegos</span>
       </span>
       <span class="badge badge-secondary">{{ count($games) }}</span>
-      <p style="font-size: 15px">{{ $category->desc }}</p>
+      <p style="font-size: 15px">
+        Estos son todos los juegos publicados en GFALL, están ordenados por su fecha de publicación.
+        Esperamos que os gusten.
+      </p>
     </div>
   </div>
 </div>
@@ -34,6 +35,5 @@
   <div class="d-flex justify-content-center">
     {{ $games->links() }}
   </div>
-
 </div>
 @endsection

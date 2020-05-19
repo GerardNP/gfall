@@ -7,24 +7,41 @@ use App\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Session;
+use Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Game;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
-  public function index()
+  public function index() // Acceso restringido a usuarios admin
   {
-    $categories = Category::all();
-    return view( "categories.index", compact("categories") );
+    $user = Auth::user();
+    if ( Gate::allows("isAdmin", $user) ) {
+      $categories = Category::paginate(12);
+      return view( "categories.index", compact("categories") );
+
+    } else {
+      Gate::authorize("isAdmin", $user);
+    }
   }
 
-  public function show($slug) {
+  public function show($slug)
+  {
     $category = Category::where("slug", $slug)->first();
-    $games = $category->games->where("published", true);
+    $games = Game::where("published", true)->where("category_id", $category->id)->paginate(12);
     return view( "categories.show", compact("category", "games") );
   }
 
   public function create()
   {
-    return view("categories.create");
+    $user = Auth::user();
+    if ( Gate::allows("isAdmin", $user) ) {
+      return view("categories.create");
+
+    } else {
+      Gate::authorize("isAdmin", $user);
+    }
   }
 
   public function store(Request $request)
@@ -32,13 +49,14 @@ class CategoryController extends Controller
     // Validación
     $rules = [
       "name" => "required|unique:categories",
-      "img" => "required|image",
+      "img" => "required|image|max:1500",
     ];
     $messages = [
       "name.required" => "Es obligatorio rellenar este campo",
       "name.unique" => "Ya existe una categoría con ese nombre",
       "img.required" => "Es obligatorio subir un archivo",
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
+      "img.max" => "El archivo debe pesar menos de 1.5MB",
     ];
     $this->validate($request, $rules, $messages);
 
@@ -53,23 +71,30 @@ class CategoryController extends Controller
     return redirect( action("CategoryController@index") );
   }
 
-  public function edit($id)
+  public function edit($id) // Acceso restringido a usuarios admin
   {
-    $category = Category::find($id);
-    return view( "categories.edit", compact("category") );
+    $user = Auth::user();
+    if ( Gate::allows("isAdmin", $user) ) {
+      $category = Category::find($id);
+      return view( "categories.edit", compact("category") );
+
+    } else {
+      Gate::authorize("isAdmin", $user);
+    }
   }
 
-  public function update(Request $request, $id)
+  public function update(Request $request, $id) // Acceso restringido a usuarios admin
   {
     // Validación
     $rules = [
-      "name" => "required|unique:categories",
-      "img" => "image"
+      "name" => ["required" , Rule::unique("categories", "name")->ignore($id)],
+      "img" => ["image", "max:1500"],
     ];
     $messages = [
       "name.required" => "Es obligatorio rellenar este campo",
       "name.unique" => "Ya existe una categoría con ese nombre",
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
+      "img.max" => "El archivo debe pesar menos de 1.5MB",
     ];
     $this->validate($request, $rules, $messages);
 
@@ -90,7 +115,7 @@ class CategoryController extends Controller
     return redirect( action("CategoryController@index") );
   }
 
-  public function destroy($id)
+  public function destroy($id) // Acceso restringido a usuarios admin
   {
     $category = Category::find($id);
     $imgPath = $category->img;

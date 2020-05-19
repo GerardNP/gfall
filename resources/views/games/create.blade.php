@@ -23,7 +23,7 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                           @endforeach
                         </select>
-                        @error("name")
+                        @error("category_id")
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
@@ -44,7 +44,7 @@
                         <label for="desc" class="col-md-4 col-form-label text-md-right">Descripción</label>
 
                         <div class="col-md-6">
-                            <textarea name="desc" id="desc" class="form-control">{{ old('desc') }}</textarea>
+                            <textarea rows="5" name="desc" id="desc" class="form-control">{{ old('desc') }}</textarea>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
                             <button type="submit" class="btn btn-primary">Aceptar</button>
-                            <a href="{{ action('GameController@index') }}" class="btn btn-secondary">Cancelar</a>
+                            <a href="{{ action('AccountController@show', Auth::user()->account->slug ) }}" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </div>
                   </form>

@@ -1,30 +1,34 @@
 @extends("layouts.app")
-@section("title", "Editar perfil: " . $user->name . " - GFALL")
+@section("title", "Editar perfil: " . $account->user->name . " - GFALL")
 @section("content")
 <div class="container mt-3">
-  <form action="{{ action('AccountController@update', $user->id) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ action('AccountController@update', $account->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method("PUT")
 
     <div class="row">
       <div class="col-4">
         <div class="form-group"><!-- Imagen -->
-          <label for="id_img">
-            <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
-          </label>
-          <input type="file" name="img" class="form-control-file" id="id_img">
+          <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
+          <input type="file" name="img" class="form-control-file @error('img') is-invalid @enderror">
+          @error("img")
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
       </div>
 
       <div class="col-8">
         <div class="form-group"><!-- Nombre -->
           <label for="id_name">Nombre</label>
-          <input type="text" name="name" value="{{ $user->name }}" class="form-control" id="id_name">
+          <input type="text" name="name" value="{{ $account->user->name }}" class="form-control @error('name') is-invalid @enderror" id="id_name">
+          @error("name")
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
 
         <div class="form-group"><!-- Descripción -->
           <label for="id_dec">Descripción</label>
-          <textarea name="desc" rows="8" class="form-control" id="id_dec">{{ $account->desc }}</textarea>
+          <textarea name="desc" rows="8" class="form-control @error('desc') is-invalid @enderror" id="id_dec">{{ $account->desc }}</textarea>
         </div>
 
         <div class="d-flex justify-content-center"><!-- Botones -->

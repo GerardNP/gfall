@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
                                 @error('name')
                                   <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -26,7 +26,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">Correo</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
 
                                 @error('email')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -38,7 +38,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
 
                                 @error('password')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -50,7 +50,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmar contraseña</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                             </div>
                         </div>
 

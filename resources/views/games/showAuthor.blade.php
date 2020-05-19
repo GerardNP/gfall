@@ -1,18 +1,18 @@
 @extends("layouts.app")
-
-@section("title", $category->name . " - GFALL")
+@section("title", "Juegos recientes - GFALL")
 
 @section("content")
 <div style="background-color: var(--blue-secondary);" class="mb-3 py-3">
   <div class="media align-items-center container">
-    <img src="{{ asset($category->img) }}" alt="" height="60" class="mr-3">
+    <img src="{{ asset($account->img) }}" alt="" height="60" class="mr-3">
     <div class="media-body"style="color: var(--white);">
       <span class="my-breadcrumb" style="font-size: 20px;">
         <a href="{{ action('GameController@showAll') }}" class="text-decoration-none font-weight-light" style="color: var(--white);">Juegos</a> /
-        <span class="font-weight-bolder">{{ $category->name }}</span>
+        <span class="font-weight-bolder">{{ $account->user->name }}</span>
       </span>
       <span class="badge badge-secondary">{{ count($games) }}</span>
-      <p style="font-size: 15px">{{ $category->desc }}</p>
+      <p style="font-size: 15px">Estos son los juegos que ha publicado el usuario {{ $account->user->name }}.
+      Esperamos que os gusten.</p>
     </div>
   </div>
 </div>
@@ -34,6 +34,5 @@
   <div class="d-flex justify-content-center">
     {{ $games->links() }}
   </div>
-
 </div>
 @endsection

@@ -10,7 +10,7 @@ class ScoreController extends Controller
 {
   public function show($slug) {
     $account = Account::where("slug", $slug)->first();
-    $scores = Score::where("account_id", $account->id)->get();
+    $scores = Score::where("account_id", $account->id)->paginate(12);
 
     return view( "scores.show", compact("scores") );
   }

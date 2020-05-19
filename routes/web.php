@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Front - Acceso Público
+// Home
 Route::get("/", "HomeController@index");
 
 // Cuenta
@@ -28,11 +28,21 @@ Route::resource("/admin/categories", "CategoryController")->except("show")->midd
 Route::get("/categories/{category}", "CategoryController@show");
 
 //Juegos
-Route::resource("/admin/games", "GameController")->except("show")->middleware("auth");
+Route::resource("/admin/games", "GameController")->except(["show", "create"])->middleware("auth");
+Route::get("/profile/{slug}/create", "GameController@create")->middleware("auth");
 Route::get("/games/{game}", "GameController@show");
+Route::get("/games-featured", "GameController@showFeatured");
+Route::get("/games", "GameController@showAll");
+Route::get("/profile/{slug}/games", "GameController@showAuthor");
 
 // Puntuaciones
 Route::get("/profile/{slug}/scores", "ScoreController@show");
 
 // Auntenticación
-Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registro
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');

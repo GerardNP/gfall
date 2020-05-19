@@ -1,3 +1,15 @@
+:root {
+  --white: #ffffff;
+  --white-secondary: #eff3f6;
+  --grey-primary: #cfd9e0;
+  --grey-secondary : #999999;
+  --blue-primary : #0b2239;
+  --blue-secondary : #0e4a89;
+  --orange : #ffb229;
+  /* : #fca120; */
+  --green: #4ad295;
+}
+
 html {
   min-height: 100%;
   position: relative;
@@ -14,6 +26,12 @@ hr {
   right: 0;
 }
 
+@media only screen and (max-device-width : 576px) {
+  .tooltip {
+      display: none !important;
+  }
+ }
+
 
 /* MIS CLASES */
 .no-button {
@@ -21,8 +39,14 @@ hr {
   background-color: rgba(255, 255, 255, 0);
 }
 
+.title-section {
+  color:  var(--grey-secondary) !important;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
 /* SIDEBAR */
-#close {
+ #close {
   cursor: pointer;
 }
 
@@ -63,11 +87,11 @@ hr {
   color: white;
 }
 
+
 /* CONTAINER GAME*/
 .container-game {
   width: 100%;
   height: 600px;
-  background-color: grey;
 }
 
 .game {
