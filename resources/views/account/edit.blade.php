@@ -11,9 +11,10 @@
       <div class="col-4">
         <div class="form-group">{{-- Imagen --}}
           <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
-          <input type="file" name="img" size="5" class="mt-2 w-100 form-control-file @error('img') is-invalid @enderror">
+          <input type="file" name="img" size="5" class="mt-2 w-100 form-control-file
+            @error('img') is-invalid @enderror">
           @error("img")
-          <div class="invalid-feedback">{{ $message }}</div>
+            <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>
       </div>
@@ -32,6 +33,12 @@
           <label for="id_dec">Descripción</label>
           <textarea name="desc" rows="8"
           class="form-control @error('desc') is-invalid @enderror" id="id_dec">{{ $account->desc }}</textarea>
+        </div>
+
+        <div class="form-group">{{-- RED SOCIAL --}}
+          <label for="social_network">Red Social</label>
+          <input type="text" name="social_network" class="form-control" value="{{ $account->social_network }}"
+            id="social_network" placeholder="Ej: github.com/user123">
         </div>
 
         <div class="d-flex">{{-- Botones --}}

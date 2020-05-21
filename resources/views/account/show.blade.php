@@ -26,6 +26,12 @@
       <p style="font-size: 20px">
         {{ $account->desc }}
       </p>
+      @if( !empty($account->social_network) )
+        <a href="{{ $account->social_network}}" class="text-decoration-none">
+          <img src="{{ asset('img/admin/social-network.svg') }}" alt="" height="30">
+          Red Social
+        </a>
+      @endif
     </div>
   </div>
 

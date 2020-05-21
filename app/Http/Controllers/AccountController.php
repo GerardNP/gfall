@@ -68,6 +68,7 @@ class AccountController extends Controller
     $account->update([
       "slug" => Str::slug($request->name),
       "desc" => $request->desc,
+      "social_network" => $request->social_network,
     ]);
 
     if ( $request->file("img") ) {
