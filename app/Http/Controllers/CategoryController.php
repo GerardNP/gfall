@@ -14,11 +14,13 @@ use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
-  public function index() // Acceso restringido a usuarios admin
-  {
+    // Muestra un CRUD de las categorías
+  public function index() {
     $user = Auth::user();
     if ( Gate::allows("isAdmin", $user) ) {
-      $categories = Category::paginate(12);
+      $categories = Category::orderBy("created_at", "desc")
+      ->paginate(12);
+
       return view( "categories.index", compact("categories") );
 
     } else {
@@ -26,17 +28,30 @@ class CategoryController extends Controller
     }
   }
 
-  public function show($slug)
-  {
+
+  // Muestra los juegos de la categoría si existe esta
+  public function show($slug) {
     $category = Category::where("slug", $slug)->first();
-    $games = Game::where("published", true)->where("category_id", $category->id)->paginate(12);
-    return view( "categories.show", compact("category", "games") );
+
+    if ( isset($category) ) {
+      $games = Game::where("published", true)
+      ->where("category_id", $category->id)
+      ->orderBy("created_at", "desc")
+      ->paginate(12);
+
+      return view( "categories.show", compact("category", "games") );
+
+    } else {
+      return abort("404");
+    }
   }
 
-  public function create()
-  {
+
+  // Acceso permitido solo a usuarios admin
+  public function create() {
     $user = Auth::user();
     if ( Gate::allows("isAdmin", $user) ) {
+
       return view("categories.create");
 
     } else {
@@ -44,8 +59,8 @@ class CategoryController extends Controller
     }
   }
 
-  public function store(Request $request)
-  {
+
+  public function store(Request $request) {
     // Validación
     $rules = [
       "name" => "required|unique:categories",
@@ -71,11 +86,13 @@ class CategoryController extends Controller
     return redirect( action("CategoryController@index") );
   }
 
-  public function edit($id) // Acceso restringido a usuarios admin
-  {
+
+  // Acceso permitido solo a usuarios admin
+  public function edit($id) {
     $user = Auth::user();
     if ( Gate::allows("isAdmin", $user) ) {
       $category = Category::find($id);
+
       return view( "categories.edit", compact("category") );
 
     } else {
@@ -83,8 +100,9 @@ class CategoryController extends Controller
     }
   }
 
-  public function update(Request $request, $id) // Acceso restringido a usuarios admin
-  {
+
+  // Acceso permitido solo a usuarios admin
+  public function update(Request $request, $id) {
     // Validación
     $rules = [
       "name" => ["required" , Rule::unique("categories", "name")->ignore($id)],
@@ -115,9 +133,16 @@ class CategoryController extends Controller
     return redirect( action("CategoryController@index") );
   }
 
-  public function destroy($id) // Acceso restringido a usuarios admin
-  {
+
+  // Acceso permitido solo a usuarios admin
+  public function destroy($id) {
     $category = Category::find($id);
+
+    $games = $category->games;
+    foreach ($games as $game) {
+      Storage::disk("myDisk")->delete($game->img);
+    }
+
     $imgPath = $category->img;
     Storage::disk("myDisk")->delete($imgPath);
     $category->delete();
@@ -125,4 +150,5 @@ class CategoryController extends Controller
     Session::flash("message", "Categoría eliminada correctamente");
     return redirect( action("CategoryController@index") );
   }
+
 }

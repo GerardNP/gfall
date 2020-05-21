@@ -2,7 +2,7 @@
 @section("title", "Crear juego - GFALL")
 
 @section("content")
-<div class="container mt-3">
+<div class="container mt-3 mb-5">
   <div class="row justify-content-center">
       <div class="col-md-8">
           <div class="card">

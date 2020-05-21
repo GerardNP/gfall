@@ -29,14 +29,15 @@ Route::get("/categories/{category}", "CategoryController@show");
 
 //Juegos
 Route::resource("/admin/games", "GameController")->except(["show", "create"])->middleware("auth");
-Route::get("/profile/{slug}/create", "GameController@create")->middleware("auth");
+Route::get("/myprofile/games/create", "GameController@create")->middleware("auth");
 Route::get("/games/{game}", "GameController@show");
-Route::get("/games-featured", "GameController@showFeatured");
 Route::get("/games", "GameController@showAll");
+Route::get("/games-featured", "GameController@showFeatured");
 Route::get("/profile/{slug}/games", "GameController@showAuthor");
 
 // Puntuaciones
-Route::get("/profile/{slug}/scores", "ScoreController@show");
+Route::get("/profile/{slug}/scores", "ScoreController@showAuthor");
+Route::get("/games/{slug}/scores", "ScoreController@showGame");
 
 // Auntenticación
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

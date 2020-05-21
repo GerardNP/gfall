@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
           "admin" => "1",
           "slug" => "gerard-np",
           "desc" => "The best programmer ever. Yeah. Usuario admin.",
-          "img" => "users/gerard-np.jpg",
+          "img" => "img/users/gerard-np.jpg",
         ]);
         DB::table("users")->insert([
           "id" => "1",
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
           "desc" => "Usuario registrado.
             Poco más que decir.
             Adiós.",
-          "img" => "users/alex-ga.jpeg",
+          "img" => "img/users/alex-ga.jpeg",
         ]);
         DB::table("users")->insert([
           "id" => "2",

@@ -21,8 +21,9 @@ class CreateGamesTable extends Migration
         $table->string("img");
         $table->boolean("published");
         $table->boolean("featured");
+
         $table->foreignId("account_id")->references("id")->on("accounts");
-        $table->foreignId("category_id")->references("id")->on("categories");
+        $table->foreignId("category_id")->constrained()->onDelete("cascade");
         $table->timestamps();
       });
     }

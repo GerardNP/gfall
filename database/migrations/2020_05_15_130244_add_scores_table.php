@@ -16,7 +16,7 @@ class AddScoresTable extends Migration
       Schema::create('scores', function (Blueprint $table) {
         $table->id();
         $table->foreignId("account_id")->references("id")->on("accounts");
-        $table->foreignId("game_id")->references("id")->on("games");
+        $table->foreignId("game_id")->constrained()->onDelete("cascade");
         $table->integer("score");
         $table->timestamps();
       });

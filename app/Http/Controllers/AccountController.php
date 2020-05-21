@@ -15,65 +15,44 @@ use Illuminate\Validation\Rule;
 
 class AccountController extends Controller
 {
-  /**
-   * Display the specified user.
-   *
-   * @param  string  $slug
-   * @return \Illuminate\Http\Response
-   */
-  public function show($slug)
-  {
+  // Muestra el perfil del usuario si este existe
+  public function show($slug) {
     $account = Account::where("slug", $slug)->first();
-    $user = User::where("account_id", $account->id)->first();
-    $games = Game::where("account_id", $account->id)->where("published", true)->get();
+    if ( isset($account) ) {
+      $games = Game::where("account_id", $account->id)
+      ->where("published", true)
+      ->limit(6)
+      ->get();
 
-    /* Guarda el nombre de  las categorías afectadas y elimina lass repetidas */
-    $categories_name = [];
-    foreach ($games as $game) {
-      array_push($categories_name, $game->category->name);
+      // Comprueba si el usuario está logueado y si es su perfil
+      $aux = false;
+      if ( Auth::user() && Auth::user()->id == $account->user->id) {
+        $aux = true;
+      }
+
+      return view( "account.show", compact("account", "aux", "games") );
+
+    } else {
+      return abort("404");
     }
-    $results = array_unique($categories_name);
-    $games = Game::where("account_id", $account->id)->where("published", true)->limit(6)->get();
-
-    /* Guardo las categorías cuyo nombre coincida con las del array */
-    $categories = [];
-    foreach ($results as $result) {
-      array_push($categories, Category::where( "name", $result)->first() );
-    }
-
-    // Comprueba si el usuario está logueado y si es su perfil
-    $aux = false;
-    if ( Auth::user() && Auth::user()->id == $user->id) {
-      $aux = true;
-    }
-
-    return view( "account.show", compact("account", "user", "aux", "games", "categories") );
   }
 
-  /**
-   * Show the form for editing the specified user.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function edit()
-  {
+
+  // Edita el perfil del usuario registrado, si este está logueado
+  public function edit() {
     $account = Account::where("id", Auth::user()->account->id)->first();
+
     return view( "account.edit", compact("account") );
   }
 
-  /**
-   * Update the specified user in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {
+
+  //
+  public function update(Request $request, $id) {
     $account = Account::find($id);
     $user = $account->user->id;
     $rules = [
-      "name" => ["required" , Rule::unique("users", "name")->ignore($user)],
+      "name" => ["required" , Rule::unique("users", "name")->ignore($user),
+        "regex:/^[a-zA-Z]* ?([a-zA-Z]*)?$/"],
       "img" => ["image", "max:1500"],
     ];
     $messages = [
@@ -84,7 +63,7 @@ class AccountController extends Controller
     ];
     $this->validate($request, $rules, $messages);
 
-    $imgPath = $request->img;
+    $imgPath = $account->img;
     $account->user->update( ["name" => $request->name] );
     $account->update([
       "slug" => Str::slug($request->name),
@@ -92,10 +71,10 @@ class AccountController extends Controller
     ]);
 
     if ( $request->file("img") ) {
-      if ( $imgPath != "not-profile.svg" ) {
+      if ( $imgPath != "img/users/not-profile.svg" ) {
         Storage::disk("myDisk")->delete($imgPath);
       }
-      $path = Storage::disk("myDisk")->put("img/admin/", $request->file("img"));
+      $path = Storage::disk("myDisk")->put("img/users/", $request->file("img"));
       $account->img = $path;
       $account->save();
     }

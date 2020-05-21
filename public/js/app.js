@@ -20,7 +20,7 @@ function logout() {
 
 function showSidebar() {
   var sMenu = document.getElementById("sidebar-menu");
-  sMenu.style.width = "230px";
+  sMenu.style.width = "320px"; //230
 
 }
 

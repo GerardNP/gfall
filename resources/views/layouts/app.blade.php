@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
-    <!-- Required meta tags -->
+    {{-- Required meta tags --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- CSRF Token -->
+    {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> @yield("title") </title>
 
-    <!-- Optional JavaScript: jQuery first, then Popper.js, then Bootstrap JS -->
+    {{-- Optional JavaScript: jQuery first, then Popper.js, then Bootstrap JS --}}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" defer integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" defer integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <!-- My scripts -->
+    {{-- My scripts --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Bootstrap CSS -->
+    {{-- Bootstrap CSS --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!-- My styles -->
+    {{-- My styles --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- Favicon -->
+    {{-- Favicon --}}
     <link rel="icon" href="{{ asset('img/admin/favicon.svg') }}">
   </head>
   <body>
 
-    <!-- NAV -->
+    {{-- NAV --}}
     <nav class="navbar bg-dark py-3 justify-align-center">
       <button type="button" class="no-button text-white" id="navbarSidebar">
         <svg class="bi bi-justify" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -92,8 +92,8 @@
       </div>
       @if( $auxCategories )
         @foreach( $auxCategories as $auxCategory )
-            <a href="{{ action('CategoryController@show', $auxCategory->slug) }}" class="d-flex align-items-center flex-nowrap">
-              <img src="{{ asset($auxCategory->img) }}" alt="" height="32" class="mr-2">
+            <a href="{{ action('CategoryController@show', $auxCategory->slug) }}" class="d-flex align-items-center flex-no-wrap text-truncate">
+              <img src="{{ asset($auxCategory->img) }}" alt="" height="32" class="mr-2 rounded">
               {{ $auxCategory->name }}
             </a>
         @endforeach
@@ -101,21 +101,24 @@
     </div>
 
 
-    <!-- MAIN -->
+    {{-- MAIN --}}
     <main>
       @yield("content")
     </main>
 
 
-    <!-- FOOTER -->
+    {{-- FOOTER --}}
     <div class="clear-footer"></div>
-    <footer class="bg-dark w-100 py-3">
-      <p class="text-center text-white my-0">Todos los derechos reservados. Proyecto Fin de Ciclo.</p>
+    <footer class="bg-dark w-100 py-3 px-2 text-break">
+      <p class="text-center text-white my-0">
+        Todos los derechos reservados.
+        Proyecto Fin de Ciclo.
+      </p>
     </footer>
 
 
-    <!-- <script> PARA QUE SIRVE ESTO¿?
+    {{-- <script> PARA QUE SIRVE ESTO¿?
       var asset = "{{ asset('') }}";
-    </script> -->
+    </script> --}}
   </body>
 </html>

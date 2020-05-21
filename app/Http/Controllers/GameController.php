@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -16,62 +15,93 @@ use Illuminate\Validation\Rule;
 
 class GameController extends Controller
 {
-  public function index() // Acceso restringido a usuarios admin
-  {
+  // Muestra un CRUD (excepto create) de los juegos accesible, solo para admins
+  public function index() {
     $user = Auth::user();
     if ( Gate::allows("isAdmin", $user)) {
-      $games = Game::paginate(12);
+      $games = Game::orderBy("created_at", "desc")
+      ->paginate(12);
+
       return view( "games.index", compact("games") );
-      
+
     } else {
       Gate::authorize("isAdmin", $user);
     }
   }
 
-  public function show($slug)
-  {
-    $game = Game::where("slug", $slug)->first();
-    return view( "games.show", compact("game") );
+
+  // Muestra la vista del juego solo si existe o está publicado.
+  public function show($slug) {
+    $game = Game::where("slug", $slug)
+    ->where("published", true)
+    ->first();
+
+    if ( isset($game) ) {
+      return view( "games.show", compact("game") );
+
+    } else {
+      return abort("404");
+    }
   }
 
-  public function showFeatured()
-  {
-    $games = Game::where("published", true)->where("featured", true)->paginate(12);
+
+  // Muestra los juegos destacados
+  public function showFeatured() {
+    $games = Game::where("published", true)
+    ->where("featured", true)
+    ->orderBy("updated_at", "desc")
+    ->paginate(12);
+
     return view( "games.showFeatured", compact("games") );
   }
 
-  public function showAll()
-  {
-    $games = Game::where("published", true)->paginate(12);
+
+  // Muestra todos los juegos publicados
+  public function showAll() {
+    $games = Game::where("published", true)
+    ->orderBy("created_at", "desc")
+    ->paginate(12);
+
     return view( "games.showAll", compact("games") );
   }
 
-  public function showAuthor($slug)
-  {
+
+  // Muestra los juegos publicados de un usuario registrado
+  public function showAuthor($slug) {
     $account = Account::where("slug", $slug)->first();
-    $games = Game::where("published", true)->where("account_id", $account->id)->paginate(12);
-    return view( "games.showAuthor", compact("games", "account") );
+    if ( isset($account) ) {
+      $games = Game::where("published", true)
+      ->where("account_id", $account->id)
+      ->paginate(12);
+
+      return view( "games.showAuthor", compact("games", "account") );
+
+    } else {
+      return abort("404");
+    }
   }
 
-  public function create($slug) // Acceso restringido a usuarios
-  {
+  // Acceso permitido a todos los usuarios registrados
+  public function create() {
     $user = User::find(Auth::user()->id);
     $account = $user->account;
     $categories = Category::all();
+
     return view( "games.create", compact("user", "account", "categories") );
   }
 
-  public function store(Request $request)
-  {
+
+  public function store(Request $request) {
     // Validación
     $rules = [
       "category_id" => "required",
-      "name" => "required|unique:games",
+      "name" => "required |unique:games",
       "img" => "required|image|max:1500",
     ];
     $messages = [
       "category_id.required" => "Es obligatorio seleccionar una categoría",
       "name.required" => "Es obligatorio rellenar este campo",
+      "name.regex" => "Solo se permiten caracteres alfabéticos y un espacio",
       "name.unique" => "Ya existe una categoría con ese nombre",
       "img.required" => "Es obligatorio subir un archivo",
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
@@ -91,12 +121,14 @@ class GameController extends Controller
     return redirect( action("AccountController@show", $game->account->slug) );
   }
 
-  public function edit($id) // Acceso restringido a usuarios admin
-  {
+
+  // Acceso permitido solo a admins
+  public function edit($id) {
     $user = Auth::user();
     if ( Gate::allows("isAdmin", $user)) {
       $game = Game::find($id);
       $categories = Category::all();
+
       return view( "games.edit", compact("game", "categories") );
 
     } else {
@@ -104,8 +136,8 @@ class GameController extends Controller
     }
   }
 
-  public function update(Request $request, $id) // Acceso restringido a usuarios admin
-  {
+
+  public function update(Request $request, $id) {
     // Validación
     $rules = [
       "name" => ["required" , Rule::unique("games", "name")->ignore($id)],
@@ -136,8 +168,9 @@ class GameController extends Controller
     return redirect( action("GameController@index") );
   }
 
-  public function destroy($id) // Acceso restringido a usuarios admin
-  {
+
+  // Acceso permitido solo a usuarios admins
+  public function destroy($id) {
     $game = Game::find($id);
     $imgPath = $game->img;
     Storage::disk("myDisk")->delete($imgPath);
@@ -146,4 +179,5 @@ class GameController extends Controller
     Session::flash("message", "Juego eliminado correctamente");
     return redirect( action("GameController@index") );
   }
+
 }

@@ -2,7 +2,7 @@
 @section("title", "Editar juego - GFALL")
 
 @section("content")
-<div class="container mt-3">
+<div class="container mt-3 mb-5">
   <div class="row justify-content-center">
       <div class="col-md-8">
           <div class="card">
@@ -93,7 +93,7 @@
 
                         <div class="col-md-6">
                             <input type="file" name="img" id="img" class="form-control-file mb-1 @error('img') is-invalid @enderror">
-                            <img src="{{ asset($game->img) }}" alt="" height="150">
+                            <img src="{{ asset($game->img) }}" alt="" height="150" class="img-fluid">
                             @error('img')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

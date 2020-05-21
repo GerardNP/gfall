@@ -2,23 +2,29 @@
 @section("title", "Juegos - GFALL")
 
 @section("content")
-<div style="background-color: var(--blue-secondary);" class="mb-3 py-3">
+<section style="background-image: url({{ asset('img/admin/background-header-section.webp') }});"
+class="mb-3 py-3 background-center">
   <div class="media align-items-center container">
-    <img src="{{ asset('img/admin/games.svg') }}" alt="" height="60" class="mr-3">
-    <div class="media-body"style="color: var(--white);">
-      <span class="my-breadcrumb" style="font-size: 20px;">
-        <span class="font-weight-bolder">Juegos</span>
+    <img src="{{ asset('img/admin/games.svg') }}" alt="" height="60" class="mr-3 rounded"
+    style="max-width: 150px">
+
+    <div class="media-body text-break" style="color: var(--white);">
+      <span class="font-weight-bolder" style="font-size: 20px;">
+        Juegos
+        <span class="badge badge-secondary">{{ count($games) }}</span>
       </span>
-      <span class="badge badge-secondary">{{ count($games) }}</span>
       <p style="font-size: 15px">
         Estos son todos los juegos publicados en GFALL, están ordenados por su fecha de publicación.
         Esperamos que os gusten.
       </p>
     </div>
   </div>
-</div>
+</section>
 
-<div class="container">
+<section class="container my-3">
+  @if( empty($games[0]) )
+    Actualmente no hay juegos publicados.
+  @else
   <div class="row row-cols-2 row-cols-md-3">
     @foreach( $games as $game )
     <div class="col mb-4">
@@ -35,5 +41,6 @@
   <div class="d-flex justify-content-center">
     {{ $games->links() }}
   </div>
-</div>
+  @endif
+</section>
 @endsection

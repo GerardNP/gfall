@@ -1,16 +1,17 @@
 @extends("layouts.app")
 @section("title", "Editar perfil: " . $account->user->name . " - GFALL")
 @section("content")
-<div class="container mt-3">
-  <form action="{{ action('AccountController@update', $account->id) }}" method="post" enctype="multipart/form-data">
+<div class="container mt-3 mb-5">
+  <form action="{{ action('AccountController@update', $account->id) }}" method="post"
+  enctype="multipart/form-data">
     @csrf
     @method("PUT")
 
     <div class="row">
       <div class="col-4">
-        <div class="form-group"><!-- Imagen -->
+        <div class="form-group">{{-- Imagen --}}
           <img src="{{ asset($account->img) }}" alt="" class="img-fluid img-thumbnail">
-          <input type="file" name="img" class="form-control-file @error('img') is-invalid @enderror">
+          <input type="file" name="img" size="5" class="mt-2 w-100 form-control-file @error('img') is-invalid @enderror">
           @error("img")
           <div class="invalid-feedback">{{ $message }}</div>
           @enderror
@@ -18,25 +19,31 @@
       </div>
 
       <div class="col-8">
-        <div class="form-group"><!-- Nombre -->
+        <div class="form-group">{{-- Nombre --}}
           <label for="id_name">Nombre</label>
-          <input type="text" name="name" value="{{ $account->user->name }}" class="form-control @error('name') is-invalid @enderror" id="id_name">
+          <input type="text" name="name" value="{{ $account->user->name }}"
+          class="form-control @error('name') is-invalid @enderror" id="id_name">
           @error("name")
           <div class="invalid-feedback">{{ $message }}</div>
           @enderror
         </div>
 
-        <div class="form-group"><!-- Descripción -->
+        <div class="form-group">{{-- Descripción --}}
           <label for="id_dec">Descripción</label>
-          <textarea name="desc" rows="8" class="form-control @error('desc') is-invalid @enderror" id="id_dec">{{ $account->desc }}</textarea>
+          <textarea name="desc" rows="8"
+          class="form-control @error('desc') is-invalid @enderror" id="id_dec">{{ $account->desc }}</textarea>
         </div>
 
-        <div class="d-flex justify-content-center"><!-- Botones -->
+        <div class="d-flex">{{-- Botones --}}
           <button type="submit" class="btn btn-primary mr-1">Guardar cambios</button>
-          <a href="{{ action('AccountController@show', $account->slug) }}" class="btn btn-secondary ml-1">Cancelar</a>
+          <a href="{{ action('AccountController@show', $account->slug) }}"
+            class="btn btn-secondary ml-1 d-flex align-items-center">
+            Cancelar
+          </a>
         </div>
       </div>
     </div>
+
   </form>
 </div>
 @endsection
