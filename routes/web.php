@@ -23,6 +23,11 @@ Route::middleware(["auth"])->group( function () {
   Route::put("/myprofile/{id}", "AccountController@update");
 });
 
+//Búsqueda
+Route::get("/search", "SearchController@index");
+Route::get("/search/users", "SearchController@users");
+Route::get("/search/games", "SearchController@games");
+
 // Categorías
 Route::resource("/admin/categories", "CategoryController")->except("show")->middleware("auth");
 Route::get("/categories/{category}", "CategoryController@show");
