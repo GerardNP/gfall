@@ -43,6 +43,7 @@ Route::get("/profile/{slug}/games", "GameController@showAuthor");
 // Puntuaciones
 Route::get("/profile/{slug}/scores", "ScoreController@showAuthor");
 Route::get("/games/{slug}/scores", "ScoreController@showGame");
+Route::post("/games/score/set/set", "ScoreController@save");
 
 // Auntenticación
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

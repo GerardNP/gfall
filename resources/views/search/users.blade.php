@@ -21,40 +21,38 @@
 
 
     @if( isset($users) && !empty($users) )
-    <h2 class="my-2 text-center">
-      Usuarios
-      <span class="badge badge-secondary">{{ count($users) }}</span>
-    </h2>
+    <div class="table-responsive mt-4">
+      <table class="table table-hover">
+        <caption>x resultados</caption>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Link</th>
+        </tr>
 
-    <table class="table">
-      <tr>
-        <th>Foto</th>
-        <th>Nombre</th>
-        <th>Link</th>
-      </tr>
+        @foreach($users as $user)
+        <tr>
+          <td>
+            <img src="{{ asset($user->account->img) }}" alt="" height="50">
+          </td>
 
-      @foreach($users as $user)
-      <tr>
-        <td>
-          <img src="{{ asset($user->account->img) }}" alt="" height="50">
-        </td>
-
-        <td>
-          <a href="{{ action('AccountController@show', $user->account->slug) }}">
-            {{ $user->name }}
-          </a>
-        </td>
-
-        <td>
-          @if( isset($user->account->social_network) )
-            <a href="{{ $user->account->social_network }}">
-              <img src="{{ asset('img/admin/social-network.svg') }}" alt="" height="40">
+          <td>
+            <a href="{{ action('AccountController@show', $user->account->slug) }}" class="text-decoration-none">
+              {{ $user->name }}
             </a>
-          @endif
-        </td>
-      </tr>
-      @endforeach
-    </table>
+          </td>
+
+          <td>
+            @if( isset($user->account->social_network) )
+              <a href="{{ $user->account->social_network }}">
+                <img src="{{ asset('img/admin/social-network.svg') }}" alt="" height="40">
+              </a>
+            @endif
+          </td>
+        </tr>
+        @endforeach
+      </table>
+    </div>
     @endif
 
 

@@ -76,7 +76,7 @@
   </table>
 </div>
 
-<div class="container mt-3 mb-5">
+<div class="container mt-3">
   <a href="{{ action('CategoryController@create') }}" class="btn btn-primary btn-block">
     Crear categoría
   </a>

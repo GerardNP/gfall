@@ -27,53 +27,22 @@
 
   <hr class="mb-2">
 
-  {{-- <div class="row row-cols-3 row-cols-md-4"> --}}
-    {{--@foreach( $categories as $category)
-    <div class="col mb-3">
-        <img src="{{ asset($category->img) }}" alt="" class="rounded" height="50">
-    </div>--}}
-    {{-- <a href="{{ action('CategoryController@show', $category->slug) }}" class="text-decoration-none">
-      <div class="media col border rounded-pill align-items-center py-2">
-        <img src="{{ asset($category->img) }}" class="mr-3 rounded" alt="..." height="30">
-        <div class="media-body">
-          <h6 class="card-title my-0 px-0 mr-1">{{ $category->name }}</h6>
-        </div>
-      </div>
-    </a> --}}
-    {{--
-    <div class="col mb-4">
-      <div class="card rounded-pill">
-        <a href="{{ action('CategoryController@show', $category->slug) }}" class="text-decoration-none">
-          <div class="row justify-content-center align-items-center">
-            <img src="{{ asset($category->img) }}" class="col-3 px-0 my-1" alt="" height="30">
-            <h6 class="card-title my-0 px-0 col-auto">{{ $category->name }}</h6>
+  <div class="row row-cols-1 row-cols-md-4 mb-4">
+  @foreach( $categories as $category)
+   <div class="col mb-2">
+     <a href="{{ action('CategoryController@show', $category->slug) }}" class="text-decoration-none">
+       <div class="media border rounded-pill py-2">
+          <img src="{{ asset($category->img) }}" class="align-self-center mx-3" alt="..." height="40">
+          <div class="media-body d-flex align-self-center">
+            <span class="mt-0 text-break">{{ $category->name }}</span>
           </div>
-        </a>
       </div>
-    </div>
-    --}}
-    {{--@endforeach
-  </div>
-  @endif--}}
-  <div class="row row-cols-2 row-cols-md-4">
-   @foreach( $categories as $category)
-   <div class="col mb-3">
-     <div class="card rounded-pill">
-       <a href="{{ action('CategoryController@show', $category->slug) }}" class="text-decoration-none">
-         <div class="row justify-content-center align-items-center">
-           <img src="{{ asset($category->img) }}" class="col-auto px-0 my-1 rounded" alt="" height="40" style="max-width: 40px;">
-           <span class="card-title my-0 px-0 col-auto">
-             @php
-             echo substr($category->name, 0, 10);
-             @endphp
-           </span>
-         </div>
-       </a>
-     </div>
+    </a>
    </div>
-   @endforeach
- </div>
+  @endforeach
+  </div>
 @endif
+
 
   {{-- FEATURED GAMES --}}
   @if( !empty($featuredGames[0]) )

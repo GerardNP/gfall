@@ -26,10 +26,40 @@ class="py-3 background-center">
   </div>
 </section>
 
-
 <section style="background-image: url({{ asset('img/admin/background-game.png') }})"
 class="container-game">
-  <div class="game container"></div>
+  <div class="game container">
+    @auth
+    <button type="button" name="button" id="finishGame"> Terminar juego</button>
+    @endauth
+  </div>
+  <script>
+    var score = 3;
+
+    $(document).ready(function() {
+      @auth
+      $.ajaxSetup({
+        headers: { "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content") }
+      });
+
+      $("#finishGame").click( function() {
+
+        $.ajax({
+          type: "post",
+          url: "{{ action('ScoreController@save') }}",
+          data: {"score": score, "game": {{ $game->id }}, "account": {{ Auth::user()->account_id }}},
+          success: function() {
+            alert("Funciona");
+          },
+          error: function() {
+            alert("No funciona");
+          }
+        });
+
+      });
+      @endauth
+    });
+  </script>
 </section>
 
 
@@ -56,6 +86,7 @@ class="container-game">
   <hr class="mb-2">
   <p>{{ $game->desc }}</p>
   @endif
+
 
   <div id="disqus_thread"></div>
   <script>

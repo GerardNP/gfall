@@ -44,4 +44,14 @@ class ScoreController extends Controller
     }
   }
 
+
+  public function save(Request $request) {
+    $score = Score::updateOrCreate(
+      // Si encuentra un registro que coincida con estos valores
+      ["account_id" => $request->account, "game_id" => $request->game],
+      // lo actualiza con estos valores, si no, lo crea
+      ["score"=>$request->score]
+    );
+  }
+
 }

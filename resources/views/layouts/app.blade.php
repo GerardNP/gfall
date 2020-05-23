@@ -11,9 +11,12 @@
     <title> @yield("title") </title>
 
     {{-- Optional JavaScript: jQuery first, then Popper.js, then Bootstrap JS --}}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" defer integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" defer integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     {{-- My scripts --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -87,12 +90,13 @@
 
     <div id="sidebar-menu">
       <div class="d-flex align-items-center head">
-        <span>Categorías</span>
+        <span class="mx-5">Categorías</span>
         <img src="{{ asset('img/admin/close.svg') }}" alt="" height="25" id="close" class="mt-1">
       </div>
       @if( $auxCategories )
         @foreach( $auxCategories as $auxCategory )
-            <a href="{{ action('CategoryController@show', $auxCategory->slug) }}" class="d-flex align-items-center flex-no-wrap text-truncate">
+            <a href="{{ action('CategoryController@show', $auxCategory->slug) }}"
+              class="d-flex align-items-center flex-no-wrap text-truncate">
               <img src="{{ asset($auxCategory->img) }}" alt="" height="32" class="mr-2 rounded">
               {{ $auxCategory->name }}
             </a>
@@ -108,7 +112,7 @@
 
 
     {{-- FOOTER --}}
-    <div class="clear-footer"></div>
+    <div class="clear-footer mt-4"></div>
     <footer class="bg-dark w-100 py-3 px-2 text-break">
       <p class="text-center text-white my-0">
         Todos los derechos reservados.

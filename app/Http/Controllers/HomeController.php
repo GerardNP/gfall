@@ -11,10 +11,11 @@ class HomeController extends Controller
 
   public function index() {
     $categories = Category::where("featured", true)
+      ->take(8)
       ->get();
 
     $publishedGames = Game::where("published", true)
-      ->take(8)
+      ->take(12)
       ->orderBy("created_at", "desc")
       ->get();
 

@@ -90,7 +90,7 @@ hr {
 
 #sidebar-menu a {
   display: block;
-  margin: 1.3em 1em;
+  padding: 1em 1.3em;
   text-decoration: none;
   color: grey;
   font-size: 1.2em;
@@ -99,6 +99,7 @@ hr {
 
 #sidebar-menu a:hover {
   color: white;
+  background-color: rgba(200, 200, 200, 0.38);
 }
 
 
