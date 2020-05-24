@@ -60,7 +60,6 @@ class SearchController extends Controller
       if ( $results = 0) {
         $games = [];
       }
-      print_r($results);
     }
 
     return view( "search.games", compact("games", "name", "results") );

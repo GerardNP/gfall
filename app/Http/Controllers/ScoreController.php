@@ -14,6 +14,8 @@ class ScoreController extends Controller
     $account = Account::where("slug", $slug)->first();
     $name = $account->user->name;
     if ( isset($account) ) {
+      /* Si un juego ha desactivado sus puntuaciones, la puntuación del jugador si se podrá ver
+      pero las mejores, accesibles por url o por la página del juego no. */
       $scores = Score::where("account_id", $account->id)
       ->paginate(12);
 
@@ -29,6 +31,7 @@ class ScoreController extends Controller
   public function showGame($slug) {
     $game = Game::where("slug", $slug)
     ->where("published", true)
+    ->where("has_score", true)
     ->first();
 
     if ( isset($game) ) {

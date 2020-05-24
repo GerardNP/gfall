@@ -29,21 +29,20 @@ class="py-3 background-center">
 <section style="background-image: url({{ asset('img/admin/background-game.png') }})"
 class="container-game">
   <div class="game container">
-    @auth
+    @if( Auth::user() && $game->has_score == true)
     <button type="button" name="button" id="finishGame"> Terminar juego</button>
-    @endauth
+    @endif
   </div>
   <script>
     var score = 3;
 
+    @if( Auth::user() && $game->has_score == true)
     $(document).ready(function() {
-      @auth
       $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content") }
       });
 
       $("#finishGame").click( function() {
-
         $.ajax({
           type: "post",
           url: "{{ action('ScoreController@save') }}",
@@ -55,15 +54,15 @@ class="container-game">
             alert("No funciona");
           }
         });
-
       });
-      @endauth
     });
+    @endif
   </script>
 </section>
 
 
 <section class="container mt-3 mb-5">
+  @if( $game->has_score == true )
   <div class="row my-3">
     <div class="col-6">
       <a href="{{ action('ScoreController@showGame', $game->slug) }}" class="btn btn-block btn-secondary">
@@ -79,6 +78,12 @@ class="container-game">
       </a>
     </div>
   </div>
+  @else
+  <a href="{{ action('AccountController@show', $game->account->slug) }}" class="btn btn-block btn-secondary my-3">
+    <img src="{{ asset($game->account->img) }}" alt="" height="50" class="rounded-circle">
+    <span class="d-block text-break">{{$game->account->user->name}}</span>
+  </a>
+  @endif
 
 
   @if( !empty($game->desc) )

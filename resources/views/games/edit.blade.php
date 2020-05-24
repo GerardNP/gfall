@@ -89,6 +89,25 @@
                     </div>
 
                     <div class="form-group row">
+                      <span class="col-md-4 col-form-label text-md-right">Puntuaciones</span>
+
+                      <div class="col-md-6 ml-4">
+                        <div class="form-check">
+                          <input type="radio" name="has_score" id="score" value="1" class="form-check-input" @if( $game->has_score == true ) checked @endif>
+                          <label class="form-check-label" for="score">Activadas</label>
+                        </div>
+
+                        <div class="form-check">
+                          <input type="radio" name="has_score" id="notScore" value="0" class="form-check-input" @if( $game->has_score == false ) checked @endif>
+                          <label class="form-check-label" for="notScore">Desactivadas</label>
+                        </div>
+                        @error('has_score')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="img" class="col-md-4 col-form-label text-md-right">Portada</label>
 
                         <div class="col-md-6">
