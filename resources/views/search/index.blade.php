@@ -23,7 +23,7 @@
     @if( isset($users) && !empty($users) )
     <div class="table-responsive mt-4">
       <table class="table table-hover">
-        <caption>x resultados</caption>
+        <caption>{{ $resultsU}} resultados</caption>
         <tr>
           <th>Foto</th>
           <th>Nombre</th>
@@ -59,7 +59,7 @@
     @if( isset($games) && !empty($games) )
     <div class="table-responsive mt-4">
       <table class="table table-hover">
-        <caption>x resultados</caption>
+        <caption>{{ $resultsG }} resultados</caption>
         <tr>
           <th>Portada</th>
           <th>Nombre</th>

@@ -20,11 +20,11 @@
     </div>
 
 
-    @if( isset($games) && !empty($games) )
 
+    @if( !empty($games) )
     <div class="table-responsive mt-4">
       <table class="table table-hover">
-        <caption>x resultados</caption>
+        <caption>{{ $results }} resultados</caption>
         <tr>
           <th>Portada</th>
           <th>Nombre</th>
@@ -50,14 +50,16 @@
           </td>
         </tr>
         @endforeach
+
       </table>
     </div>
-    @endif
 
-    @if( !empty($games) )
+
     <div class="d-flex justify-content-center mb-4">
       {{ $games->appends(["name" => $name ])->links() }}
     </div>
-    @endif
   </div>
+  @else
+    <span style="color: #6c757d;">Sin resultados</span>
+  @endif
 @endsection

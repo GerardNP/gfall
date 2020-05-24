@@ -20,10 +20,10 @@
     </div>
 
 
-    @if( isset($users) && !empty($users) )
+    @if( !empty($users) )
     <div class="table-responsive mt-4">
       <table class="table table-hover">
-        <caption>x resultados</caption>
+        <caption>{{ $results }} resultados</caption>
         <tr>
           <th>Foto</th>
           <th>Nombre</th>
@@ -53,13 +53,13 @@
         @endforeach
       </table>
     </div>
-    @endif
 
 
-    @if( !empty($users) )
     <div class="d-flex justify-content-center mb-4">
       {{ $users->appends(["name" => $name ])->links() }}
     </div>
-    @endif
   </div>
+  @else
+    <span style="color: #6c757d;">Sin resultados</span>
+  @endif
 @endsection
