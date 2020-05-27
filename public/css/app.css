@@ -2,17 +2,6 @@
   --white: #ffffff;
   --grey : #999999;
   --black: #3a3d42;
-
-  --white: #ffffff;
-  --white-secondary: #eff3f6;
-  --grey-primary: #cfd9e0;
-  --grey-secondary : #999999;
-  --blue-primary : #0b2239;
-  --blue-secondary : #0e4a89;
-  --orange : #ffb229;
-  /* : #fca120; */
-  --green: #4ad295;
-
 }
 
 html {
@@ -28,6 +17,8 @@ hr {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+
 
 /* SOBRESCRITURA */
 .dropdown-menu {
@@ -49,7 +40,6 @@ hr {
 }
 
 .background-center {
-
   background-position: center;
 }
 
@@ -109,7 +99,7 @@ hr {
   height: 600px;
 }
 
-.game {
+#game {
   height: inherit;
   background-color: black;
 }

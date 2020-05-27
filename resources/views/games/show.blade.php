@@ -28,14 +28,12 @@ class="py-3 background-center">
 
 <section style="background-image: url({{ asset('img/admin/background-game.png') }})"
 class="container-game">
-  <div class="game container">
+  <div class="container" id="game">
     @if( Auth::user() && $game->has_score == true)
     <button type="button" name="button" id="finishGame"> Terminar juego</button>
     @endif
   </div>
   <script>
-    var score = 3;
-
     @if( Auth::user() && $game->has_score == true)
     $(document).ready(function() {
       $.ajaxSetup({

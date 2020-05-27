@@ -84,41 +84,53 @@ class GameController extends Controller
   // Acceso permitido a todos los usuarios registrados
   public function create() {
     $user = User::find(Auth::user()->id);
-    $account = $user->account;
     $categories = Category::all();
 
-    return view( "games.create", compact("user", "account", "categories") );
+    return view( "games.create", compact("user", "categories") );
   }
 
 
   public function store(Request $request) {
     // Validación
     $rules = [
-      "category_id" => "required",
-      "name" => "required |unique:games",
-      "img" => "required|image|max:1500",
+      // "category_id" => "required",
+      // "name" => "required |unique:games",
+      // "img" => "required|image|max:1500",
+      "files" => "required|array",
+      "files.*" => "mimes:html,css,js",
+
     ];
     $messages = [
-      "category_id.required" => "Es obligatorio seleccionar una categoría",
-      "name.required" => "Es obligatorio rellenar este campo",
-      "name.regex" => "Solo se permiten caracteres alfabéticos y un espacio",
-      "name.unique" => "Ya existe una categoría con ese nombre",
-      "img.required" => "Es obligatorio subir un archivo",
-      "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
-      "img.max" => "El archivo debe pesar menos de 1.5MB",
+      // "category_id.required" => "Es obligatorio seleccionar una categoría",
+      // "name.required" => "Es obligatorio rellenar este campo",
+      // "name.regex" => "Solo se permiten caracteres alfabéticos y un espacio",
+      // "name.unique" => "Ya existe una categoría con ese nombre",
+      // "img.required" => "Es obligatorio subir un archivo",
+      // "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
+      // "img.max" => "El archivo debe pesar menos de 1.5MB",
+      "files.required" => "Es obligatorio subir algún archivo",
+      "files.*.mimes" => "NOP",
     ];
     $this->validate($request, $rules, $messages);
 
-    $game = new Game( $request->all() );
-    $game->slug = Str::slug($request->name);
-    $game->published = false;
-    $game->featured = false;
-    $path = Storage::disk("myDisk")->put("img/games", $request->file("img"));
-    $game->img = $path;
-    $game->save();
+    print_r($request->files);
 
-    Session::flash("message", "Juego enviado correctamente");
-    return redirect( action("AccountController@show", $game->account->slug) );
+    // $game = new Game( $request->all() );
+    // $game->slug = Str::slug($request->name);
+    // $game->published = false;
+    // $game->featured = false;
+    // $pathImg = Storage::disk("myDisk")->put("img/games", $request->file("img"));
+    // $game->img = $pathImg;
+    // foreach ($request->file("files") as $file) {
+    //   $pathFile = Storage::disk("myDisk")->put("file/games/".$game->id, $file);
+    //   print_r($pathFile);
+    // }
+    // $game->file = $pathFile;
+    // $game->save();
+
+
+    // Session::flash("message", "Juego enviado correctamente");
+    // return redirect( action("AccountController@show", $game->account->slug) );
   }
 
 
