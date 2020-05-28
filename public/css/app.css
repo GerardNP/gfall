@@ -49,11 +49,12 @@ hr {
   font-weight: bold;
 }
 
-/* SIDEBAR */
- #close {
-  cursor: pointer;
+
+#close, #favorite {
+ cursor: pointer;
 }
 
+/* SIDEBAR */
 #sidebar-menu {
   width: 0px;
   height: 100%;

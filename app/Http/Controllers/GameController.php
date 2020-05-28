@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Session;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use App\Favorite;
 
 class GameController extends Controller
 {
@@ -37,7 +38,19 @@ class GameController extends Controller
     ->first();
 
     if ( isset($game) ) {
-      return view( "games.show", compact("game") );
+      
+      if ( Auth::user() ) {
+        $favorite = Favorite::where("game_id", $game->id)
+          ->where("account_id", Auth::user()->account->id)
+          ->first();
+
+        if ( isset($favorite) ) {
+          $favorite = true;
+        } else {
+          $favorite = false;
+        }
+      }
+      return view( "games.show", compact("game", "favorite") );
 
     } else {
       return abort("404");

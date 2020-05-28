@@ -40,10 +40,13 @@ Route::get("/games", "GameController@showAll");
 Route::get("/games-featured", "GameController@showFeatured");
 Route::get("/profile/{slug}/games", "GameController@showAuthor");
 
+// Favoritos
+Route::post("/games/favorites/set", "FavoriteController@save")->middleware("auth");
+
 // Puntuaciones
 Route::get("/profile/{slug}/scores", "ScoreController@showAuthor");
 Route::get("/games/{slug}/scores", "ScoreController@showGame");
-Route::post("/games/score/set/set", "ScoreController@save");
+Route::post("/games/scores/set/", "ScoreController@save")->middleware("auth");
 
 // Auntenticación
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -23,6 +23,14 @@ class="py-3 background-center">
         </span>
       </span>
     </div>
+
+    @auth
+      @if( $favorite == true )
+        <img src="{{ asset('img/admin/favorite.svg') }}" alt="" height="50" id="favorite">
+      @else
+        <img src="{{ asset('img/admin/no-favorite.svg') }}" alt="" height="50" id="favorite">
+      @endif
+    @endauth
   </div>
 </section>
 
@@ -33,25 +41,40 @@ class="container-game">
     <button type="button" name="button" id="finishGame"> Terminar juego</button>
     @endif
   </div>
-  <script>
+  <script> {{-- PROVISIONAL, AL FINAL O EN EL JS EXTERNO GLOBAL --}}
+    var score = 15; {{-- PROVISIONAL, DEBERÍA IR EN EL JS DEL JUEGO --}}
+
     @if( Auth::user() && $game->has_score == true)
     $(document).ready(function() {
       $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content") }
       });
 
-      $("#finishGame").click( function() {
+      $("#favorite").click( function() {
         $.ajax({
           type: "post",
-          url: "{{ action('ScoreController@save') }}",
-          data: {"score": score, "game": {{ $game->id }}, "account": {{ Auth::user()->account_id }}},
+          url:  "{{ action('FavoriteController@save') }}",
+          data: {"game": {{ $game->id }}, "account": {{ Auth::user()->account_id }}},
           success: function() {
-            alert("Funciona");
-          },
-          error: function() {
-            alert("No funciona");
+            location.reload();
           }
         });
+      });
+
+      $("#finishGame").click( function() {
+        if ( Number.isInteger(score) ) {
+          $.ajax({
+            type: "post",
+            url: "{{ action('ScoreController@save') }}",
+            data: {"score": score, "game": {{ $game->id }}, "account": {{ Auth::user()->account_id }}},
+            success: function() {
+              alert("Funciona score");
+            },
+            error: function() {
+              alert("No funciona score");
+            }
+          });
+        }
       });
     });
     @endif
