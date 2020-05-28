@@ -54,12 +54,14 @@ class AccountController extends Controller
       "name" => ["required" , Rule::unique("users", "name")->ignore($user),
         "regex:/^[a-zA-Z]* ?([a-zA-Z]*)?$/"],
       "img" => ["image", "max:1500"],
+      "social_network" => ["regex:/^https:\/\//"],
     ];
     $messages = [
       "name.required" => "Es obligatorio rellenar este campo",
       "name.unique" => "Ya existe un usuario con ese nombre",
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
       "img.max" => "El archivo debe pesar menos de 1.5MB",
+      "social_network.regex" => "El enlace debe empezar por https://"
     ];
     $this->validate($request, $rules, $messages);
 

@@ -82,7 +82,7 @@ class="container-game">
 </section>
 
 
-<section class="container mt-3 mb-5">
+<section class="container my-3">
   @if( $game->has_score == true )
   <div class="row my-3">
     <div class="col-6">
@@ -112,8 +112,10 @@ class="container-game">
   <hr class="mb-2">
   <p>{{ $game->desc }}</p>
   @endif
+</section>
 
 
+<section class="container mb-3 mt-5">
   <div id="disqus_thread"></div>
   <script>
   {{-- RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.

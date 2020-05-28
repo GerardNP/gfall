@@ -37,8 +37,11 @@
 
         <div class="form-group">{{-- RED SOCIAL --}}
           <label for="social_network">Red Social</label>
-          <input type="text" name="social_network" class="form-control" value="{{ $account->social_network }}"
-            id="social_network" placeholder="Ej: github.com/user123">
+          <input type="text" name="social_network" class="form-control @error('social_network') is-invalid @enderror"
+            value="{{ $account->social_network }}" id="social_network" placeholder="Ej: https://github.com/user123">
+          @error("social_network")
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
 
         <div class="d-flex">{{-- Botones --}}
