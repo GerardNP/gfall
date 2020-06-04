@@ -1,7 +1,0 @@
-document.getElementById("btn-play").addEventListener("click", play);
-var score = 0;
-
-function play() {
-  score = prompt("Introduce tu puntuación.");
-  alert(score);
-}

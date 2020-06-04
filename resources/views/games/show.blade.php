@@ -37,10 +37,15 @@ class="py-3 background-center">
 <section style="background-image: url({{ asset('img/admin/background-game.png') }})"
 class="container-game">
   <div class="container" id="game">
-    @if( Auth::user() && $game->has_score == true)
+    <button type="button" id="btn-play">Jugar!</button>
+    {{-- @if( Auth::user() && $game->has_score == true)
     <button type="button" name="button" id="finishGame"> Terminar juego</button>
-    @endif
+    @endif --}}
   </div>
+  <link rel="stylesheet" href="{{ asset($game->files.'/styles.css')}}">
+  <script src="{{ asset($game->files.'/scripts.js')}}">
+
+  </script>
   <script> {{-- PROVISIONAL, AL FINAL O EN EL JS EXTERNO GLOBAL --}}
     var score = 15; {{-- PROVISIONAL, DEBERÍA IR EN EL JS DEL JUEGO --}}
 

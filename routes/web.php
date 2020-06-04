@@ -39,6 +39,7 @@ Route::get("/games/{game}", "GameController@show");
 Route::get("/games", "GameController@showAll");
 Route::get("/games-featured", "GameController@showFeatured");
 Route::get("/profile/{slug}/games", "GameController@showAuthor");
+Route::post("/download", "GameController@downloadFiles");
 
 // Favoritos
 Route::post("/games/favorites/set", "FavoriteController@save")->middleware("auth");

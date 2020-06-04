@@ -25,6 +25,7 @@
       <th>Autor</th>
       <th>Estado</th>
       <th>Detalles</th>
+      <th>Archivos</th>
       <th>Acciones</th>
     </tr>
 
@@ -71,6 +72,14 @@
 
         <td>
           <p class="text-break">{{ $game->desc }}</p>
+        </td>
+
+        <td>
+          <form action="{{ action('GameController@downloadFiles')}}" method="post" id="download-form">
+            @csrf
+            <input type="hidden" name="id" value="{{ $game->id }}">
+            <img src="{{ asset('img/admin/download.svg') }}" alt="" height="40" id="download">
+          </form>
         </td>
 
         <td class="d-flex">

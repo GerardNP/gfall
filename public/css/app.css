@@ -50,7 +50,7 @@ hr {
 }
 
 
-#close, #favorite {
+#close, #favorite, #download {
  cursor: pointer;
 }
 

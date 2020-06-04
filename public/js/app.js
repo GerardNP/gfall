@@ -13,9 +13,17 @@ if ( document.getElementById("logout") ) {
   document.getElementById("logout").addEventListener("click", logout);
 }
 
+if ( document.getElementById("download") ) {
+  document.getElementById("download").addEventListener("click", download);
+}
+
 // FUNCTIONS
 function logout() {
   document.getElementById('logout-form').submit();
+}
+
+function download() {
+  document.getElementById('download-form').submit();
 }
 
 function showSidebar() {

@@ -38,7 +38,7 @@ class GameController extends Controller
     ->first();
 
     if ( isset($game) ) {
-      
+      $favorite = null;
       if ( Auth::user() ) {
         $favorite = Favorite::where("game_id", $game->id)
           ->where("account_id", Auth::user()->account->id)
@@ -106,44 +106,51 @@ class GameController extends Controller
   public function store(Request $request) {
     // Validación
     $rules = [
-      // "category_id" => "required",
-      // "name" => "required |unique:games",
-      // "img" => "required|image|max:1500",
+      "category_id" => "required",
+      "name" => "required |unique:games",
+      "img" => "required|image|max:1500",
       "files" => "required|array",
-      "files.*" => "mimes:html,css,js",
-
+      "files.*" => "mimes:html,txt,jpeg,png,bmp,gif,svg,webp",
     ];
     $messages = [
-      // "category_id.required" => "Es obligatorio seleccionar una categoría",
-      // "name.required" => "Es obligatorio rellenar este campo",
-      // "name.regex" => "Solo se permiten caracteres alfabéticos y un espacio",
-      // "name.unique" => "Ya existe una categoría con ese nombre",
-      // "img.required" => "Es obligatorio subir un archivo",
-      // "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
-      // "img.max" => "El archivo debe pesar menos de 1.5MB",
+      "category_id.required" => "Es obligatorio seleccionar una categoría",
+      "name.required" => "Es obligatorio rellenar este campo",
+      "name.regex" => "Solo se permiten caracteres alfabéticos y un espacio",
+      "name.unique" => "Ya existe una categoría con ese nombre",
+      "img.required" => "Es obligatorio subir un archivo",
+      "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
+      "img.max" => "El archivo debe pesar menos de 1.5MB",
       "files.required" => "Es obligatorio subir algún archivo",
-      "files.*.mimes" => "NOP",
+      "files.*.mimetypes" => "Solo ficheros HTML, CSS, JS e imágenes",
     ];
     $this->validate($request, $rules, $messages);
 
-    print_r($request->files);
+    $game = new Game( $request->all() );
+    $game->slug = Str::slug($request->name);
+    $game->published = false;
+    $game->featured = false;
+    $game->has_score = false;
+    $pathImg = Storage::disk("myDisk")->put("img/games", $request->file("img"));
+    $game->img = $pathImg;
+    /* Como el id no se establece hasta que se guarda el registro, le introduzco un valor
+    en la columna files para evitar errores, guardo el registro y después cojo el id */
+    $game->files = "default";
+    $game->save();
 
-    // $game = new Game( $request->all() );
-    // $game->slug = Str::slug($request->name);
-    // $game->published = false;
-    // $game->featured = false;
-    // $pathImg = Storage::disk("myDisk")->put("img/games", $request->file("img"));
-    // $game->img = $pathImg;
-    // foreach ($request->file("files") as $file) {
-    //   $pathFile = Storage::disk("myDisk")->put("file/games/".$game->id, $file);
-    //   print_r($pathFile);
-    // }
-    // $game->file = $pathFile;
-    // $game->save();
+    $zip = new \ZipArchive();
+    $zip->open("file/games/".$game->id.".zip", \ZipArchive::CREATE);
+    foreach ($request->file("files") as $file) {
+      $nameFile = $file->getClientOriginalName();
+      $pathFile = Storage::disk("myDisk")->putFileAs("file/games/".$game->id, $file, $nameFile);
+      $zip->addFile($pathFile);
+    }
+    $zip->close();
+    Storage::disk("myDisk")->deleteDirectory("file/games/".$game->id);
+    $game->files = "file/games/".$game->id.".zip";
+    $game->save();
 
-
-    // Session::flash("message", "Juego enviado correctamente");
-    // return redirect( action("AccountController@show", $game->account->slug) );
+    Session::flash("message", "Juego enviado correctamente");
+    return redirect( action("AccountController@show", $game->account->slug) );
   }
 
 
@@ -197,12 +204,19 @@ class GameController extends Controller
   // Acceso permitido solo a usuarios admins
   public function destroy($id) {
     $game = Game::find($id);
-    $imgPath = $game->img;
-    Storage::disk("myDisk")->delete($imgPath);
+    Storage::disk("myDisk")->delete($game->img);
+    Storage::disk("myDisk")->delete($game->files);
     $game->delete();
 
     Session::flash("message", "Juego eliminado correctamente");
     return redirect( action("GameController@index") );
+  }
+
+
+  // Descarga el archivo pasado por parámetro
+  public function downloadFiles(Request $request) {
+    $game = Game::find($request->id);
+    return Storage::disk("myDisk")->download($game->files);
   }
 
 }
