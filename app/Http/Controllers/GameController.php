@@ -132,6 +132,7 @@ class GameController extends Controller
     $game->has_score = false;
     $pathImg = Storage::disk("myDisk")->put("img/games", $request->file("img"));
     $game->img = $pathImg;
+
     /* Como el id no se establece hasta que se guarda el registro, le introduzco un valor
     en la columna files para evitar errores, guardo el registro y después cojo el id */
     $game->files = "default";
@@ -142,7 +143,7 @@ class GameController extends Controller
     foreach ($request->file("files") as $file) {
       $nameFile = $file->getClientOriginalName();
       $pathFile = Storage::disk("myDisk")->putFileAs("file/games/".$game->id, $file, $nameFile);
-      $zip->addFile($pathFile);
+      $zip->addFile($pathFile, $nameFile);
     }
     $zip->close();
     Storage::disk("myDisk")->deleteDirectory("file/games/".$game->id);
@@ -173,11 +174,13 @@ class GameController extends Controller
     // Validación
     $rules = [
       "name" => ["required" , Rule::unique("games", "name")->ignore($id)],
+      "files.*" => "mimes:txt,jpeg,png,bmp,gif,svg,webp",
       "img" => ["image", "max:1500"],
     ];
     $messages = [
       "name.required" => "Es obligatorio rellenar este campo",
       "name.unique" => "Ya existe un juego con ese nombre",
+      "files.*.mimetypes" => "Solo ficheros HTML, CSS, JS e imágenes",
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
       "img.max" => "El archivo debe pesar menos de 1.5MB",
     ];
@@ -189,11 +192,37 @@ class GameController extends Controller
     $game->slug = Str::slug($request->name);
     $game->save();
 
+    /* ARCHIVOS */
+    if ( $request->hasFile("files") ) {
+      Storage::disk("myDisk")->delete($game->files);
+
+      $zip = new \ZipArchive();
+      $zip->open("file/games/".$game->id.".zip", \ZipArchive::CREATE);
+      foreach ($request->file("files") as $file) {
+        $nameFile = $file->getClientOriginalName();
+        $pathFile = Storage::disk("myDisk")->putFileAs("file/games/".$game->id, $file, $nameFile);
+        $zip->addFile($pathFile, $nameFile);
+      }
+      $zip->close();
+      Storage::disk("myDisk")->deleteDirectory("file/games/".$game->id);
+      $game->files = "file/games/".$game->id.".zip";
+      $game->save();
+    }
+
+    /* IMAGEN */
     if ( $request->file("img") ) {
       Storage::disk("myDisk")->delete($imgPath);
       $path = Storage::disk("myDisk")->put("img/games", $request->file("img"));
       $game->img = $path;
       $game->save();
+    }
+
+    /* DESCOMPRIMIR ARCHIVOS */
+    if ( $game->published == true ) {
+      $zip = new \ZipArchive();
+      $zip->open($game->files);
+      $zip->extractTo("file/games/".$game->id."/");
+      $zip->close();
     }
 
     Session::flash("message", "Juego actualizado correctamente");
@@ -206,6 +235,7 @@ class GameController extends Controller
     $game = Game::find($id);
     Storage::disk("myDisk")->delete($game->img);
     Storage::disk("myDisk")->delete($game->files);
+    Storage::disk("myDisk")->deleteDirectory("file/games/".$game->id);
     $game->delete();
 
     Session::flash("message", "Juego eliminado correctamente");

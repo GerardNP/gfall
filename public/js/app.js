@@ -28,7 +28,7 @@ function download() {
 
 function showSidebar() {
   var sMenu = document.getElementById("sidebar-menu");
-  sMenu.style.width = "320px"; //230
+  sMenu.style.width = "320px";
 
 }
 

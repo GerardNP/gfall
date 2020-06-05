@@ -34,28 +34,36 @@ class="py-3 background-center">
   </div>
 </section>
 
+
 <section style="background-image: url({{ asset('img/admin/background-game.png') }})"
 class="container-game">
   <div class="container" id="game">
-    <button type="button" id="btn-play">Jugar!</button>
-    {{-- @if( Auth::user() && $game->has_score == true)
+    @php
+    if ( file_exists("file/games/".$game->id."/index.txt") ) {
+      echo file_get_contents("file/games/".$game->id."/index.txt");
+    }
+  @endphp
+
+    @if( Auth::user() && $game->has_score == true)
     <button type="button" name="button" id="finishGame"> Terminar juego</button>
-    @endif --}}
+    @endif
   </div>
-  <link rel="stylesheet" href="{{ asset($game->files.'/styles.css')}}">
-  <script src="{{ asset($game->files.'/scripts.js')}}">
 
-  </script>
-  <script> {{-- PROVISIONAL, AL FINAL O EN EL JS EXTERNO GLOBAL --}}
-    var score = 15; {{-- PROVISIONAL, DEBERÍA IR EN EL JS DEL JUEGO --}}
+  <?php if ( file_exists("file/games/".$game->id."/styles.css") ) { ?>
+    <link rel="stylesheet" href="{{ asset('file/games/'.$game->id.'/styles.css') }}">
+  <?php } ?>
+  <?php if ( file_exists("file/games/".$game->id."/scripts.js") ) { ?>
+    <link rel="stylesheet" href="{{ asset('file/games/'.$game->id.'/scripts.js') }}">
+  <?php } ?>
 
+  <script>
     @if( Auth::user() && $game->has_score == true)
     $(document).ready(function() {
       $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content") }
       });
 
-      $("#favorite").click( function() {
+      $("#favorite").click( function() { {{-- Guardar como Favorito --}}
         $.ajax({
           type: "post",
           url:  "{{ action('FavoriteController@save') }}",
@@ -66,7 +74,7 @@ class="container-game">
         });
       });
 
-      $("#finishGame").click( function() {
+      $("#finishGame").click( function() { {{-- Guardar Puntuación --}}
         if ( Number.isInteger(score) ) {
           $.ajax({
             type: "post",

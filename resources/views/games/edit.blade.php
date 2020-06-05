@@ -107,11 +107,26 @@
                       </div>
                     </div>
 
+                    <div class="form-group row">{{-- ARCHIVOS --}}
+                        <label for="files" class="col-md-4 col-form-label text-md-right">Archivos</label>
+
+                        <div class="col-md-auto">
+                            <input type="file" name="files[]" multiple accept=".txt,.css,.js, .jpeg, .jpg, .png, .bmp, .gif, .svg, .webp" id="files"
+                            class="form-control-file @error('files[]') is-invalid @enderror">
+                            @error('files[]')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div style="font-size: 80%; color: #dc3545">
+                              Solo ficheros TXT (index.txt), CSS (styles.css), JS (scripts.js) e imágenes
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="img" class="col-md-4 col-form-label text-md-right">Portada</label>
 
                         <div class="col-md-6">
-                            <input type="file" name="img" id="img" class="form-control-file mb-1 @error('img') is-invalid @enderror">
+                            <input type="file" name="img" id="img" accept=".jpeg, .jpg, .png, .bmp, .gif, .svg, .webp" class="form-control-file mb-1 @error('img') is-invalid @enderror">
                             <img src="{{ asset($game->img) }}" alt="" height="150" class="img-fluid">
                             @error('img')
                               <div class="invalid-feedback">{{ $message }}</div>

@@ -57,7 +57,7 @@
                         <label for="img" class="col-md-4 col-form-label text-md-right">Portada</label>
 
                         <div class="col-md-6">
-                            <input type="file" name="img" id="img" accept=".jpeg, .png, .bmp, .gif, .svg, .webp" class="form-control-file @error('img') is-invalid @enderror">
+                            <input type="file" name="img" id="img" accept=".jpeg, .jpg, .png, .bmp, .gif, .svg, .webp" class="form-control-file @error('img') is-invalid @enderror">
                             @error('img')
                               <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -69,7 +69,7 @@
                         <label for="files" class="col-md-4 col-form-label text-md-right">Archivos</label>
 
                         <div class="col-md-auto">
-                            <input type="file" name="files[]" multiple accept=".html,.css,.js, .jpeg, .png, .bmp, .gif, .svg, .webp" id="files"
+                            <input type="file" name="files[]" multiple accept=".html,.css,.js, .jpeg, .jpg, .png, .bmp, .gif, .svg, .webp" id="files"
                             class="form-control-file @error('files') is-invalid @enderror">
                             @error('files')
                               <div class="invalid-feedback">{{ $message }}</div>
