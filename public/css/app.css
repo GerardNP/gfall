@@ -19,7 +19,6 @@ hr {
 }
 
 
-
 /* SOBRESCRITURA */
 .dropdown-menu {
   left: auto;
@@ -49,10 +48,10 @@ hr {
   font-weight: bold;
 }
 
-
 #close, #favorite, #download {
  cursor: pointer;
 }
+
 
 /* SIDEBAR */
 #sidebar-menu {
@@ -105,9 +104,10 @@ hr {
   background-color: black;
 }
 
+
 /* FOOTER */
 .clear-footer {
-  height: 56px;
+  height: 96px;
   content: "";
 }
 

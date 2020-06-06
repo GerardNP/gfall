@@ -24,8 +24,16 @@
     {{-- My styles --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    {{-- Favicon --}}
+    {{-- My Favicon --}}
     <link rel="icon" href="{{ asset('img/admin/favicon.svg') }}">
+
+    {{-- My Font --}}
+    <style media="screen">
+      @font-face {
+      font-family: adigiana;
+      src: url("{{ asset('font/Adigiana.ttf') }}");
+      }
+    </style>
   </head>
   <body>
 
@@ -37,8 +45,9 @@
         </svg>
       </button>
 
-      <a href="/" class=" text-white h3 text-decoration-none">
-        GFALL</a>
+      <a href="/" class=" text-white h3 text-decoration-none" style="font-family: adigiana;">
+        GFALL
+      </a>
 
       <div class="form-inline">
         <a href="{{ action('SearchController@index') }}" style="color: white">
@@ -110,12 +119,15 @@
 
     {{-- FOOTER --}}
     <div class="clear-footer mt-4"></div>
-    <footer class="bg-dark w-100 py-3 px-2 text-break">
-      <p class="text-center text-white my-0">
+    <footer class="bg-dark w-100 py-3 px-2 text-break text-white">
+      <address class="text-center">
+        Contacto: gfall@gmail.com
+      </address>
+      <p class="text-center my-0">
         Todos los derechos reservados.
         Proyecto Fin de Ciclo.
       </p>
     </footer>
-    
+
   </body>
 </html>

@@ -90,7 +90,7 @@
   @if( empty($publishedGames[0]) )
     Actualmente no hay juegos publicados.
   @else
-    <div class="row row-cols-3 row-cols-md-4">
+    <div class="row row-cols-3 row-cols-md-4 align-items-center">
     @foreach( $publishedGames as $game)
     <div class="col mb-4">
       <div class="card" data-toggle="tooltip" data-placement="right" title="{{ $game->account->user->name }}">
