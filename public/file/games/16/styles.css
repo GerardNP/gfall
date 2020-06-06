@@ -1,0 +1,50 @@
+#game {
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.content_game, .scores, .center_images, .options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button_play {
+  display: block;
+  width: 300px;
+  height: 150px;
+  padding: auto;
+  border-radius: 30px;
+  border-color: #8cdaa8;
+  background-color: #8cdaa6;
+  font-size: 300%;
+}
+
+.button_play:hover {
+  border-color: #6bbe89;
+  background-color: #83c498;
+}
+
+.content_game {
+  display: none;
+}
+
+.scores {
+  font-size: large;
+}
+
+.result {
+  font-size: 150%;
+}
+
+#rock:hover, #paper:hover, #scissors:hover, #lizard:hover, #spock:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+}
+
+.result h2 {
+  text-align: center;
+}

@@ -38,14 +38,8 @@ class="py-3 background-center">
 <section style="background-image: url({{ asset('img/admin/background-game.png') }})"
 class="container-game">
   <div class="container" id="game">
-    @php
-    if ( file_exists("file/games/".$game->id."/index.txt") ) {
-      echo file_get_contents("file/games/".$game->id."/index.txt");
-    }
-  @endphp
-
-    @if( Auth::user() && $game->has_score == true)
-    <button type="button" name="button" id="finishGame"> Terminar juego</button>
+    @if ( file_exists("file/games/".$game->id."/index.html") )
+      @php echo file_get_contents("file/games/".$game->id."/index.html"); @endphp
     @endif
   </div>
 
@@ -53,7 +47,7 @@ class="container-game">
     <link rel="stylesheet" href="{{ asset('file/games/'.$game->id.'/styles.css') }}">
   <?php } ?>
   <?php if ( file_exists("file/games/".$game->id."/scripts.js") ) { ?>
-    <link rel="stylesheet" href="{{ asset('file/games/'.$game->id.'/scripts.js') }}">
+    <script src="{{ asset('file/games/'.$game->id.'/scripts.js') }}"></script>
   <?php } ?>
 
   <script>
@@ -94,6 +88,13 @@ class="container-game">
   </script>
 </section>
 
+@if( Auth::user() && $game->has_score == true)
+<section class="container my-3">
+  <button type="button" class="btn btn-block btn-outline-secondary" id="finishGame">
+    Guardar Puntuación
+  </button>
+</section>
+@endif
 
 <section class="container my-3">
   @if( $game->has_score == true )
@@ -147,4 +148,8 @@ class="container-game">
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
+
+<script>
+var asset = "{{asset('file/games/'.$game->id)}}";
+</script>
 @endsection
