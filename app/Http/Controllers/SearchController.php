@@ -15,13 +15,13 @@ class SearchController extends Controller
       $users = User::where("name", "like", trim("%$request->name%")) //Por si acaso
         ->orderBy("name", "asc");
       $resultsU = count( $users->get() );
-      $users = $users->paginate(4);
+      $users = $users->paginate(8);
 
       $games = Game::where("name", "like", trim("%$request->name%"))
         ->where("published", true)
         ->orderBy("name", "asc");
       $resultsG = count( $games->get() );
-      $games = $games->paginate(4);
+      $games = $games->paginate(8);
     }
 
     return view( "search.index", compact("users", "games", "name", "resultsU", "resultsG") );
@@ -33,14 +33,10 @@ class SearchController extends Controller
 
     if ( isset($request->name) && !empty($request->name) ) {
       $users = User::where("name", "like", trim("%$request->name%"))
-        ->orderBy("name", "asc");
+      ->orderBy("name", "asc");
 
       $results = count( $users->get() );
-      $users = $users->paginate(6);
-
-      if ( $results == 0) {
-        $users = [];
-      }
+      $users = $users->paginate(12);
     }
 
     return view( "search.users", compact("users", "name", "results") );
@@ -56,10 +52,6 @@ class SearchController extends Controller
 
       $results = count( $games->get() );
       $games = $games->paginate(6);
-
-      if ( $results = 0) {
-        $games = [];
-      }
     }
 
     return view( "search.games", compact("games", "name", "results") );

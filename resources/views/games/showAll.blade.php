@@ -11,7 +11,7 @@ class="mb-3 py-3 background-center">
     <div class="media-body text-break" style="color: var(--white);">
       <span class="font-weight-bolder" style="font-size: 20px;">
         Juegos
-        <span class="badge badge-secondary">{{ count($games) }}</span>
+        <span class="badge badge-secondary">{{ $results }}</span>
       </span>
       <p style="font-size: 15px">
         Estos son todos los juegos publicados en GFALL, están ordenados por su fecha de publicación.
@@ -25,7 +25,7 @@ class="mb-3 py-3 background-center">
   @if( empty($games[0]) )
     Actualmente no hay juegos publicados.
   @else
-  <div class="row row-cols-2 row-cols-md-3">
+  <div class="row row-cols-2 row-cols-md-3 align-items-center">
     @foreach( $games as $game )
     <div class="col mb-4">
       <div class="card">

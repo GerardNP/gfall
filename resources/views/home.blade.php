@@ -31,7 +31,7 @@
   @foreach( $categories as $category)
    <div class="col mb-2">
      <a href="{{ action('CategoryController@show', $category->slug) }}" class="text-decoration-none">
-       <div class="media border rounded-pill py-2">
+       <div class="media border rounded-pill py-2 categoryDiv">
           <img src="{{ asset($category->img) }}" class="align-self-center mx-3" alt="..." height="40">
           <div class="media-body d-flex align-self-center">
             <span class="mt-0 text-break">{{ $category->name }}</span>
@@ -60,12 +60,14 @@
 
   <hr class="mb-2">
 
-  <div class="row row-cols-2 row-cols-md-3">
+  <div class="row row-cols-2 row-cols-md-3 align-items-center">
     @foreach( $featuredGames as $game)
     <div class="col mb-4">
-      <div class="card" data-toggle="tooltip" data-placement="right" title="{{ $game->account->user->name }}">
+      <div class="card" data-toggle="tooltip" data-placement="right" title="Autor: {{ $game->account->user->name }}">
         <a href="{{ action('GameController@show', $game->slug) }}" class="text-decoration-none">
-          <img src="{{ $game->img }}" class="card-img-top" alt="">
+          <div class="divImg2">
+            <img src="{{ $game->img }}" class="card-img-top" alt="">
+          </div>
           <h6 class="card-text text-center text-truncate px-1 py-1">{{ $game->name }}</h6>
         </a>
       </div>
@@ -93,9 +95,11 @@
     <div class="row row-cols-3 row-cols-md-4 align-items-center">
     @foreach( $publishedGames as $game)
     <div class="col mb-4">
-      <div class="card" data-toggle="tooltip" data-placement="right" title="{{ $game->account->user->name }}">
+      <div class="card" data-toggle="tooltip" data-placement="right" title="Autor: {{ $game->account->user->name }}">
         <a href="{{ action('GameController@show', $game->slug) }}" class="text-decoration-none">
-          <img src="{{ $game->img }}" class="card-img-top" alt="">
+          <div class="divImg">
+            <img src="{{ $game->img }}" class="card-img-top" alt="">
+          </div>
           <h6 class="card-text text-center text-truncate px-1 py-1">{{ $game->name }}</h6>
         </a>
       </div>

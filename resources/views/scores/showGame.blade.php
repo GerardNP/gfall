@@ -13,9 +13,9 @@
     <table class="table">
       <tr>
         <th>Pos.</th>
-        <th>Max. puntuación</th>
+        <th>Puntuación</th>
         <th>Nombre</th>
-        <th>Perfil</th>
+        <th>Foto</th>
       </tr>
 
       @if( !empty($scores[0]) )

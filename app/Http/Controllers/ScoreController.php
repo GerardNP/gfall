@@ -16,10 +16,13 @@ class ScoreController extends Controller
     if ( isset($account) ) {
       /* Si un juego ha desactivado sus puntuaciones, la puntuación del jugador si se podrá ver
       pero las mejores, accesibles por url o por la página del juego no. */
-      $scores = Score::where("account_id", $account->id)
-      ->paginate(12);
+      $scores = Score::where("account_id", $account->id);
 
-      return view( "scores.showAuthor", compact("scores", "name") );
+      $results = count( $scores->get() );
+
+      $scores = $scores->paginate(12);
+
+      return view( "scores.showAuthor", compact("scores", "name", "results") );
 
     } else {
       return abort("404");

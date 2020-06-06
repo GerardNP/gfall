@@ -6,7 +6,7 @@
 <div class="container my-3">
   <h2 class="text-center my-3">
     Puntuaciones
-    <span class="badge badge-secondary">{{ count($scores) }}</span>
+    <span class="badge badge-secondary">{{ $results }}</span>
   </h2>
 
   <div class="table-responsive my-3">

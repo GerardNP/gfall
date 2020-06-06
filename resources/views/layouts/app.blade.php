@@ -82,7 +82,7 @@
             @endif
             <h6 class="dropdown-header">Cuenta</h6>
             <a class="dropdown-item" href="{{ action('AccountController@show', Auth::user()->account->slug) }}">Perfil</a>
-            <a class="dropdown-item" href="#">Favoritos</a>
+            <a class="dropdown-item" href="{{ action('FavoriteController@show') }}">Favoritos</a>
             <a class="dropdown-item" href="#" id="logout">Cerrar sesión</a>
             <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-none">
               @csrf

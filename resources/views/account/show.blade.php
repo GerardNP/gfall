@@ -29,7 +29,7 @@
       @if( !empty($account->social_network) )
         <a href="{{ $account->social_network}}" class="text-decoration-none">
           <img src="{{ asset('img/admin/social-network.svg') }}" alt="" height="30">
-          Red Social
+          Link
         </a>
       @endif
     </div>
@@ -64,7 +64,7 @@
         Sin ningún juego publicado.
       </div>
       @else
-      <div class="row row-cols-2 row-cols-md-3">
+      <div class="row row-cols-2 row-cols-md-3 align-items-center">
         @foreach($games as $game)
         <div class="col mb-4">
           <div class="card">

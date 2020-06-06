@@ -48,6 +48,38 @@ hr {
   font-weight: bold;
 }
 
+.divImg, .divImg2 {
+  overflow:hidden;
+}
+
+.divImg img, .divImg2 img {
+  transition: all .4s ease;
+  width:100%;
+}
+
+.divImg img:hover {
+  transform:scale(1.5);
+  opacity:0.6;
+}
+
+.divImg2 img:hover {
+  transform:scale(1.5) rotate(10deg);
+  opacity:0.6;
+}
+
+.categoryDiv:hover {
+  background-color: #f8f9fa;
+}
+
+.favorite-div {
+  background-color: rgba(255, 255, 255, 0.50);
+}
+
+.favorite-div:hover {
+  background-color: rgba(224, 40, 40, 0.25);
+}
+
+
 #close, #favorite, #download {
  cursor: pointer;
 }

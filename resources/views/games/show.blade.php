@@ -25,11 +25,13 @@ class="py-3 background-center">
     </div>
 
     @auth
+    <div class="rounded-circle p-2 favorite-div">
       @if( $favorite == true )
-        <img src="{{ asset('img/admin/favorite.svg') }}" alt="" height="50" id="favorite">
+      <img src="{{ asset('img/admin/favorite.svg') }}" alt="" height="50" id="favorite">
       @else
-        <img src="{{ asset('img/admin/no-favorite.svg') }}" alt="" height="50" id="favorite">
+      <img src="{{ asset('img/admin/no-favorite.svg') }}" alt="" height="50" id="favorite">
       @endif
+    </div>
     @endauth
   </div>
 </section>
@@ -51,7 +53,7 @@ class="container-game">
   <?php } ?>
 
   <script>
-    @if( Auth::user() && $game->has_score == true)
+    @if( Auth::user() )
     $(document).ready(function() {
       $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content") }
@@ -68,6 +70,7 @@ class="container-game">
         });
       });
 
+      @if( $game->has_score == true )
       $("#finishGame").click( function() { {{-- Guardar Puntuación --}}
         if ( Number.isInteger(score) ) {
           $.ajax({
@@ -83,10 +86,12 @@ class="container-game">
           });
         }
       });
+      @endif
     });
     @endif
   </script>
 </section>
+
 
 @if( Auth::user() && $game->has_score == true)
 <section class="container my-3">
@@ -120,7 +125,6 @@ class="container-game">
   </a>
   @endif
 
-
   @if( !empty($game->desc) )
   <span class="h4">Detalles</span>
   <hr class="mb-2">
@@ -148,8 +152,4 @@ class="container-game">
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
-
-<script>
-var asset = "{{asset('file/games/'.$game->id)}}";
-</script>
 @endsection

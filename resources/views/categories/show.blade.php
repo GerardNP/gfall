@@ -17,7 +17,7 @@
         {{ $category->name }}
       </span>
       <span class="badge badge-secondary">
-        {{ count($games) }}
+        {{ $results }}
       </span>
       @if( !empty($category->desc) )
       <p style="font-size: 15px">
@@ -32,7 +32,7 @@
   @if( empty($games[0]) )
     Actualmente, esta categoría no tiene juegos publicados.
   @else
-  <div class="row row-cols-2 row-cols-md-3">
+  <div class="row row-cols-2 row-cols-md-3 align-items-center">
     @foreach( $games as $game )
     <div class="col mb-4">
       <div class="card">

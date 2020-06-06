@@ -36,10 +36,13 @@ class CategoryController extends Controller
     if ( isset($category) ) {
       $games = Game::where("published", true)
       ->where("category_id", $category->id)
-      ->orderBy("created_at", "desc")
-      ->paginate(12);
+      ->orderBy("created_at", "desc");
 
-      return view( "categories.show", compact("category", "games") );
+      $results = count( $games->get() );
+
+      $games = $games->paginate(12);
+
+      return view( "categories.show", compact("category", "games", "results") );
 
     } else {
       return abort("404");

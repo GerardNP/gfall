@@ -62,20 +62,26 @@ class GameController extends Controller
   public function showFeatured() {
     $games = Game::where("published", true)
     ->where("featured", true)
-    ->orderBy("updated_at", "desc")
-    ->paginate(12);
+    ->orderBy("updated_at", "desc");
 
-    return view( "games.showFeatured", compact("games") );
+    $results = count( $games->get() );
+
+    $games = $games->paginate(12);
+
+    return view( "games.showFeatured", compact("games", "results") );
   }
 
 
   // Muestra todos los juegos publicados
   public function showAll() {
     $games = Game::where("published", true)
-    ->orderBy("created_at", "desc")
-    ->paginate(12);
+    ->orderBy("created_at", "desc");
 
-    return view( "games.showAll", compact("games") );
+    $results = count( $games->get() );
+
+    $games = $games->paginate(12);
+
+    return view( "games.showAll", compact("games", "results") );
   }
 
 
@@ -84,10 +90,13 @@ class GameController extends Controller
     $account = Account::where("slug", $slug)->first();
     if ( isset($account) ) {
       $games = Game::where("published", true)
-      ->where("account_id", $account->id)
-      ->paginate(12);
+      ->where("account_id", $account->id);
 
-      return view( "games.showAuthor", compact("games", "account") );
+      $results = count( $games->get() );
+
+      $games = $games->paginate(12);
+
+      return view( "games.showAuthor", compact("games", "account", "results") );
 
     } else {
       return abort("404");

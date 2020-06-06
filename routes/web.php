@@ -42,6 +42,7 @@ Route::get("/profile/{slug}/games", "GameController@showAuthor");
 Route::post("/download", "GameController@downloadFiles");
 
 // Favoritos
+Route::get("/favorites", "FavoriteController@show")->middleware("auth");
 Route::post("/games/favorites/set", "FavoriteController@save")->middleware("auth");
 
 // Puntuaciones

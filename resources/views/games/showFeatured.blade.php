@@ -16,7 +16,7 @@
         /
         <span class="font-weight-bolder">Juegos Destacados</span>
         <span class="badge badge-secondary">
-          {{ count($games) }}
+          {{ $results }}
         </span>
       </span>
       <p style="font-size: 15px;">
@@ -32,7 +32,7 @@
   @if( empty($games[0]) )
     Actualmente no hay juegos destacados.
   @else
-    <div class="row row-cols-2 row-cols-md-3">
+    <div class="row row-cols-2 row-cols-md-3 align-items-center">
       @foreach( $games as $game )
       <div class="col mb-4">
         <div class="card">

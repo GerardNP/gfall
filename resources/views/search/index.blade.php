@@ -21,7 +21,10 @@
 
 
     @if( isset($users) && !empty($users) )
-    <div class="table-responsive mt-4">
+    <div class="title-section">
+      Usuarios
+    </div>
+    <div class="table-responsive mt-3 mb-4">
       <table class="table table-hover">
         <caption>{{ $resultsU}} resultados</caption>
         <tr>
@@ -57,7 +60,10 @@
 
 
     @if( isset($games) && !empty($games) )
-    <div class="table-responsive mt-4">
+    <div class="title-section">
+      Juegos
+    </div>
+    <div class="table-responsive mt-3 mb-4">
       <table class="table table-hover">
         <caption>{{ $resultsG }} resultados</caption>
         <tr>
