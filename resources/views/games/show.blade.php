@@ -77,12 +77,6 @@ class="container-game">
             type: "post",
             url: "{{ action('ScoreController@save') }}",
             data: {"score": score, "game": {{ $game->id }}, "account": {{ Auth::user()->account_id }}},
-            success: function() {
-              alert("Funciona score");
-            },
-            error: function() {
-              alert("No funciona score");
-            }
           });
         }
       });

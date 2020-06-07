@@ -119,7 +119,7 @@ class GameController extends Controller
       "name" => "required |unique:games",
       "img" => "required|image|max:1500",
       "files" => "required|array",
-      "files.*" => "mimes:html,txt,jpeg,png,bmp,gif,svg,webp",
+      "files.*" => "mimes:html,txt|max:1000",
     ];
     $messages = [
       "category_id.required" => "Es obligatorio seleccionar una categoría",
@@ -130,7 +130,8 @@ class GameController extends Controller
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
       "img.max" => "El archivo debe pesar menos de 1.5MB",
       "files.required" => "Es obligatorio subir algún archivo",
-      "files.*.mimetypes" => "Solo ficheros HTML, CSS, JS e imágenes",
+      "files.*.mimes" => "Solo ficheros HTML, CSS y JS",
+      "files.*.max" => "Cada fichero debe pesar menos de 1MB",
     ];
     $this->validate($request, $rules, $messages);
 
@@ -183,13 +184,14 @@ class GameController extends Controller
     // Validación
     $rules = [
       "name" => ["required" , Rule::unique("games", "name")->ignore($id)],
-      "files.*" => "mimes:txt,jpeg,png,bmp,gif,svg,webp",
+      "files.*" => ["mimes:html,txt", "max:1000"],
       "img" => ["image", "max:1500"],
     ];
     $messages = [
       "name.required" => "Es obligatorio rellenar este campo",
       "name.unique" => "Ya existe un juego con ese nombre",
-      "files.*.mimetypes" => "Solo ficheros HTML, CSS, JS e imágenes",
+      "files.*.mimes" => "Solo ficheros HTML, CSS, JS e imágenes",
+      "files.*.max" => "Cada fichero debe pesar menos de 1MB",
       "img.image" => "Extensiones permitidas: jpeg, png, bmp, gif, svg o webp",
       "img.max" => "El archivo debe pesar menos de 1.5MB",
     ];
@@ -227,7 +229,7 @@ class GameController extends Controller
     }
 
     /* DESCOMPRIMIR ARCHIVOS */
-    if ( $game->published == true ) {
+    if (  file_exists("file/games/".$game->id."zip") && $game->published == true ) {
       $zip = new \ZipArchive();
       $zip->open($game->files);
       $zip->extractTo("file/games/".$game->id."/");

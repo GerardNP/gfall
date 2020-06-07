@@ -22,7 +22,7 @@ class CreateGamesTable extends Migration
         $table->boolean("published");
         $table->boolean("featured");
 
-        $table->foreignId("account_id")->references("id")->on("accounts");
+        $table->foreignId("account_id")->constrained()->onDelete("cascade");
         $table->foreignId("category_id")->constrained()->onDelete("cascade");
         $table->timestamps();
       });

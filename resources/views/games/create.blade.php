@@ -69,7 +69,7 @@
                         <label for="files" class="col-md-4 col-form-label text-md-right">Archivos</label>
 
                         <div class="col-md-auto">
-                            <input type="file" name="files[]" multiple accept=".html,.css,.js, .jpeg, .jpg, .png, .bmp, .gif, .svg, .webp" id="files"
+                            <input type="file" name="files[]" multiple accept=".html,.css,.js" id="files"
                             class="form-control-file @error('files') is-invalid @enderror">
                             @error('files')
                               <div class="invalid-feedback">{{ $message }}</div>
