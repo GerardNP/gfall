@@ -229,7 +229,7 @@ class GameController extends Controller
     }
 
     /* DESCOMPRIMIR ARCHIVOS */
-    if (  file_exists("file/games/".$game->id."zip") && $game->published == true ) {
+    if ( $game->published == true ) {
       $zip = new \ZipArchive();
       $zip->open($game->files);
       $zip->extractTo("file/games/".$game->id."/");

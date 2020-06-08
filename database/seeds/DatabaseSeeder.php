@@ -226,7 +226,6 @@ class DatabaseSeeder extends Seeder
 
       // JUEGOS
       DB::table("games")->insert([
-        "id" => "1",
         "name" => "Cuphead",
         "slug" => "cuphead",
         "desc" => "Cuphead es un videojuego independiente perteneciente al género de plataformas, desarrollado y producido por la compañía Canadiense StudioMDHR. Fue lanzado al mercado el 29 de septiembre de 2017 para Microsoft Windows, Xbox One y Steam.​",
@@ -241,7 +240,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "2",
         "name" => "Fire Boy and Water Girl",
         "slug" => "fire-boy-and-water-girl",
         "desc" => "Fireboy and Watergirl in the Forest Temple (Chico Fuego y Chica Agua: El Templo del Bosque) es una nueva entrega de las divertidas series Chico Fuego y Chica Agua. En esta aventura deberás tomar el control de ambos personajes y guiarlos a través de una serie de templos majestuosos. Este juego es muy divertido, pues tienes que controlar el movimiento de AMBOS personajes. ¡Puedes intentar hacerlo por tu cuenta o puedes jugar con un amigo!
@@ -257,7 +255,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "3",
         "name" => "New Super Mario Bros Wii",
         "slug" => "new-super-mario-bros-wii",
         "desc" => "New Super Mario Bros. Wii es un videojuego de plataformas de la saga Super Mario, desarrollado y publicado por Nintendo para Wii.",
@@ -273,7 +270,6 @@ class DatabaseSeeder extends Seeder
 
 
       DB::table("games")->insert([
-        "id" => "4",
         "name" => "Marvel Spider Man",
         "slug" => "marvel-spider-man",
         "desc" => "Spider-Man es un videojuego de acción y aventura basado en el popular superhéroe hómonimo de la editorial Marvel Comics.​ Fue desarrollado por Insomniac Games y publicado por Sony Interactive Entertainment en exclusiva para la consola PlayStation 4.​",
@@ -288,7 +284,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "5",
         "name" => "The Last of Us",
         "slug" => "the-last-of-us",
         "desc" => "The Last of Us es un videojuego de acción-aventura y horror de supervivencia desarrollado por la compañía estadounidense Naughty Dog y distribuido por Sony Computer Entertainment para la consola PlayStation 3 en 2013. La trama describe las vivencias de Joel y Ellie, un par de supervivientes de una pandemia en Estados Unidos que provoca la mutación de los seres humanos en criaturas caníbales.",
@@ -303,7 +298,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "6",
         "name" => "The Last of Us 2",
         "slug" => "the-last-of-us-2",
         "desc" => "The Last of Us: Part II es un próximo videojuego de acción-aventura desarrollado por Naughty Dog y publicado por Sony. Su lanzamiento está programado para el 19 de junio de 2020.​",
@@ -319,7 +313,6 @@ class DatabaseSeeder extends Seeder
 
 
       DB::table("games")->insert([
-        "id" => "7",
         "name" => "Ōkami",
         "slug" => "okami",
         "desc" => "Ōkami ​ es un videojuego de acción-aventura desarrollado por Clover Studio y publicado por Capcom, el cual fue lanzado al mercado para la consola PlayStation 2 en 2006 en Japón y Norteamérica, y en 2007 en Europa y Australia.",
@@ -334,7 +327,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "8",
         "name" => "Minecraft",
         "slug" => "minecraft",
         "desc" => "Minecraft es un videojuego de construcción, de tipo «mundo abierto» o sandbox creado originalmente por el sueco Markus Persson (conocido comúnmente como 'Notch'),2​ y posteriormente desarrollado por su empresa, Mojang AB. Fue lanzado públicamente el 17 de mayo de 2009, después de diversos cambios fue lanzada su versión completa el 18 de noviembre de 2011.",
@@ -349,7 +341,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "9",
         "name" => "Detroit: Become Human",
         "slug" => "detroit-become-human",
         "desc" => "DescripciónDetroit: Become Human es un videojuego de aventura gráfica, desarrollado por Quantic Dream y publicado por Sony Interactive Entertainment, inicialmente lanzado en exclusiva para la consola PlayStation 4.​",
@@ -365,7 +356,6 @@ class DatabaseSeeder extends Seeder
 
 
       DB::table("games")->insert([
-        "id" => "10",
         "name" => "Pac-Man",
         "slug" => "pac-man",
         "desc" => "DescripciónPac-Man es un videojuego arcade creado por el diseñador de videojuegos Toru Iwatani de la empresa Namco, y distribuido por Midway Games al mercado estadounidense a principios de los años 1980. Desde que Pac-Man fue lanzado el 21 de mayo de 1980, fue un éxito.",
@@ -380,7 +370,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "11",
         "name" => "Frogger",
         "slug" => "frogger",
         "desc" => "Frogger es un videojuego publicado, originalmente como arcade, en 1981. La licencia para la distribución mundial fue de Sega/Gremlin y fue desarrollado por Konami. Frogger es un clásico de los videojuegos, que sigue siendo popular y del que pueden encontrarse muchas versiones en Internet.​",
@@ -395,7 +384,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "12",
         "name" => "Out Run",
         "slug" => "out-run",
         "desc" => "Out Run es un videojuego de carreras creado en 1986 por Yū Suzuki y Sega-AM2, y publicado inicialmente para máquinas recreativas.",
@@ -411,7 +399,6 @@ class DatabaseSeeder extends Seeder
 
 
       DB::table("games")->insert([
-        "id" => "13",
         "name" => "Tekken 7",
         "slug" => "tekken-7",
         "desc" => "Tekken 7 es un videojuego de lucha desarrollado y distribuido por Namco Bandai Games. El juego es la séptima entrega principal de la saga Tekken y el primero en utilizar el motor gráfico Unreal Engine. Fue estrenado inicialmente en Japón para máquinas arcade el 18 de marzo de 2015.",
@@ -426,7 +413,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "14",
         "name" => "Dragon Ball FighterZ",
         "slug" => "Dragon Ball FighterZ",
         "desc" => "Dragon Ball FighterZ es un videojuego de lucha en 2D desarrollado por Arc System Works y distribuido por Bandai Namco Entertainment, basado en la franquicia Dragon Ball.",
@@ -441,7 +427,6 @@ class DatabaseSeeder extends Seeder
       ]);
 
       DB::table("games")->insert([
-        "id" => "15",
         "name" => "Street Fighter V",
         "slug" => "street-fighter-v",
         "desc" => "Street Fighter V lit. «Peleador callejero V» es un juego de peleas publicado por Capcom, quien co-desarrollo el juego con Dimps. Es el quinto título de la serie principal de juegos de Street Fighter.",
